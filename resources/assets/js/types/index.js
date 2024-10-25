@@ -1,0 +1,62 @@
+/* Users */
+export const User = {
+  LIST: 'LIST',
+  FILTER: 'FILTER',
+  SET_USER: 'SET_USER',
+  USER_CREATE: 'USER_CREATE',
+  USER_EDIT: 'USER_EDIT',
+  USER_ACTIVE: 'USER_ACTIVE',
+  RESET: 'RESET',
+  PASSWORD_EDIT: 'PASSWORD_EDIT',
+  PASSWORD_TURN_OFF: 'PASSWORD_TURN_OFF',
+  SET_EXPORT_URL_BASE: 'SET_EXPORT_URL_BASE',
+  SET_EXPORT_URL_FULL: 'SET_EXPORT_URL_FULL',
+}
+
+/* Email */
+export const Email = {
+  LIST: 'LIST',
+  SET_EMAIL: 'SET_EMAIL',
+  EMAIL_CREATE: 'EMAIL_CREATE',
+  EMAIL_EDIT: 'EMAIL_EDIT',
+  EMAIL_DELETE: 'EMAIL_DELETE',
+  EMAIL_TURN_OFF: 'EMAIL_TURN_OFF',
+}
+
+/* Assignment Wallet */
+export const AssignmentWallet = {
+  SET_USERS: 'SET_USERS',
+  GET_CERTIFICATES: 'GET_CERTIFICATES',
+  ASSIGNMENT: 'ASSIGNMENT',
+}
+
+/* Policy Edit */
+export const PolicyEdit = {
+  SET_DATA: 'SET_DATA',
+  FETCH_DATA: 'FETCH_DATA',
+  FILTER_DATA: 'FILTER_DATA',
+  RESET_PAGINATION: 'RESET_PAGINATION',
+  SET_HEADER: 'SET_HEADER',
+  UPDATE_HEADER: 'UPDATE_HEADER',
+}
+
+/* Cancellation */
+export const Cancellation = {
+  LIST: 'LIST',
+  SET_HEADER: 'SET_HEADER',
+  CANCEL: 'CANCEL',
+}
+
+/* Credit Line */
+export const CreditLine = {
+  CREDIT_LINE_STORE: 'CREDIT_LINE_STORE',
+  CREDIT_LINE_CONFIRM: 'CREDIT_LINE_CONFIRM',
+  CREDIT_LINE_REMOVE: 'CREDIT_LINE_REMOVE',
+}
+
+/* Attached Certificate */
+export const AttachedCertificate = {
+  SET_DATA: 'SET_DATA',
+  FILTER_DATA: 'FILTER_DATA',
+  FILE_DELETE: 'FILE_DELETE',
+}

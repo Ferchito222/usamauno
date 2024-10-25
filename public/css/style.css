@@ -1,0 +1,442 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 30-10-2015, 03:38:56 PM
+    Author     : emanuel
+*/
+
+/* header */
+.navbar-header {
+    height: 60px;
+}
+
+.navbar-inverse2 {
+    background-color: #fff;
+}
+
+.cabecera {
+    margin-top: 10px;
+    margin-bottom: 10px
+}
+
+.form-wizard-title2 {
+ border-bottom: 1 px solid #ddd;
+    margin: 0 0 20px;
+    padding-bottom: 20px;
+}
+
+/* fin header */
+
+/* footer */
+.demo-color2 {
+    height: 125px;
+    margin: 3px 3px 0;
+    position: relative;
+}
+
+/* fin footer */
+
+/* general */
+.divhr {
+    border-bottom: 1px solid #ddd;
+}
+
+.text-justyfi {
+    text-align: justify;
+}
+
+.chek_inbox {
+    height: 20px;
+    margin: 0;
+    width: 20px;
+}
+
+.label_required:after {
+    content: "*";
+    color: red;
+}
+
+.form-control:focus, .select2-input:focus {
+    box-shadow: 0 0 7px #2196f3;
+}
+
+/* fin general */
+
+/* modal tamaño */
+@media screen and (min-width: 768px) {
+    #modal_general .modal-dialog {
+        width: 810px;
+    }
+}
+
+/* pading div contenedor */
+.modal-header[class*="bg-primary title"] {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    padding: 0px 20px;
+}
+
+/* color menu */
+.navbar-default {
+/ / background-color: #2196f3;
+    background-color: #337ab7;
+
+}
+
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+
+.navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+/ / background-color: #2196f3;
+    background-color: #337ab7;
+    color: #fff;
+    outline: 0 none;
+    text-decoration: none;
+}
+
+/* color del datable*/
+.table-striped > tbody > tr:nth-of-type(2n+1) {
+    background-color: #eef9f8;
+}
+
+/* border del menu */
+.navbar {
+    border-width: 0px 0;
+    margin-bottom: 0;
+/ / padding-left: 0;
+/ / padding-right: 0;
+}
+
+.navbar-default {
+    border-top-color: #f5f5f5;
+
+}
+
+/* fin border del menu */
+
+.form-control::-moz-placeholder {
+    color: #999;
+    opacity: 0.53;
+}
+
+.modal-header[class*="recuadro"] {
+    border-top-left-radius: 2px;
+    border-top-right-radius: 2px;
+    padding: 0 20px;
+}
+
+/* angucomplete-alt css */
+.angucomplete-holder {
+    position: relative;
+}
+
+.angucomplete-dropdown {
+    border-color: #ececec;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 2px;
+    width: 100%;
+    padding: 6px;
+    cursor: pointer;
+    z-index: 9999;
+    position: absolute;
+    /*top: 32px;
+    left: 0px;
+    */
+    margin-top: -6px;
+    background-color: #ffffff;
+}
+
+.angucomplete-searching {
+    color: #acacac;
+    font-size: 14px;
+}
+
+.angucomplete-description {
+    font-size: 14px;
+}
+
+.angucomplete-row {
+    padding: 5px;
+    color: #000000;
+    margin-bottom: 4px;
+    clear: both;
+}
+
+.angucomplete-selected-row {
+    background-color: lightblue;
+    color: #ffffff;
+}
+
+.angucomplete-image-holder {
+    padding-top: 2px;
+    float: left;
+    margin-right: 10px;
+    margin-left: 5px;
+}
+
+.angucomplete-image {
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    border-color: #ececec;
+    border-style: solid;
+    border-width: 1px;
+}
+
+.angucomplete-image-default {
+    /* Add your own default image here
+     background-image: url('/assets/default.png');
+    */
+    background-position: center;
+    background-size: contain;
+    height: 34px;
+    width: 34px;
+}
+
+.angucomplete-dropdown {
+    overflow-y: auto;
+    max-height: 200px;
+}
+
+/* Report highlight */
+.gridview
+{
+    /*border-collapse: collapse;
+    margin: 0px 10px 10px 0;*/
+    box-shadow: 3px 3px 4px #bbb;
+}
+
+.gridview, .gridview td,  .gridview th
+{
+    border:  1px solid #cccccc;
+}
+
+.gridview th
+{
+    text-align: left;
+    /*font-size: 1.2em;*/
+    font-weight: normal;
+    color: #F9F9F9;
+    background: #337EB5;
+}
+
+.gridview th a, .gridview th a:link, .gridview th a:visited, .gridview th a:active
+{
+    color: #F9F9F9;
+    text-decoration: none;
+}
+
+.gridview th a:hover
+{
+    text-decoration: underline;
+}
+
+.gridview tr
+{
+    background: #F4F9FD;
+}
+
+.gridview tr:nth-child(odd)
+{
+    background-color: #F4F9FD;
+}
+.gridview tr:nth-child(even)
+{
+    background-color: #EDF5FC;
+}
+
+.gridview td
+{
+    font-weight: normal;
+    text-align: left;
+    vertical-align: top;
+}
+
+.gridview td, table th
+{
+    padding: 3px 2px;
+}
+
+.gridview tfoot td
+{
+    background-color: #EEEEEE;
+}
+
+.gridview tfoot td .page
+{
+    color: #000000;
+    font-weight: bold;
+}
+
+.gridview tr.subfoot, .gridview tr.subfoot td
+{
+    background-color: #FFFFEC;
+}
+
+.gridview tr:hover td, .gridview tbody tr:hover td
+{
+    background-color: #6ccbfb;
+    color: #fff;
+}
+
+.gridview .selected, .gridview tbody .selected
+{
+    background-color: #6ccbfb;
+    color: #fff;
+}
+
+/* External Request */
+.external-request-box
+{
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    padding-top: 5px;
+    border-radius: 15px;
+    background-color: #e95e5e;
+    font-weight: bold;
+    font-size: 120%;
+    color: white;
+    text-align: center;
+
+    animation-name: erb_flicker;
+    animation-duration: 1s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+
+    -webkit-animation-name:erb_flicker;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+}
+
+@-moz-keyframes erb_flicker{
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes erb_flicker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes erb_flicker {
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+/* Inline Edit */
+.tabledit-btn-default
+{
+    background-color: #95a5a6;
+    border-color: #95a5a6;
+}
+
+.tabledit-btn-default span
+{
+    color: white;
+}
+
+.tabledit-btn-default:hover
+{
+    background-color: #798d8f;
+    border-color: #74898a;
+}
+
+.tabledit-span
+{
+    display: block;
+    padding: 8px;
+    font-size: 110%;
+    font-weight: bold;
+    color: #2c3e50;
+    text-align: left;
+}
+
+/* Input File */
+.input-file
+{
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    /*position: absolute;*/
+    z-index: -1;
+}
+
+.input-file + label
+{
+    max-width: 80%;
+    font-size: 1.25em;
+    font-weight: 700;
+    color: #FFF;
+    background-color: #D2394F;
+    display: inline-block;
+    padding: 0.625rem 1.25rem;
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+    background-color: #722040;
+}
+
+.input-file + label {
+    cursor: pointer;
+}
+
+.input-file:focus + label {
+    outline: 1px dotted #000;
+    outline: -webkit-focus-ring-color auto 5px;
+}
+
+.input-file + label * {
+    pointer-events: none;
+}
+
+.small_body {
+    /* el tamaño por defecto es 14px */
+    font-size: 11px;
+}
+
+
+.uppercase {
+    text-transform: uppercase !important;
+}
+
+.rounded-top {
+    border-top-right-radius: 15px !important;
+    border-top-left-radius: 15px !important;
+}
+
+.rounded-bottom {
+    border-bottom-right-radius: 15px !important;
+    border-bottom-left-radius: 15px !important;
+}
+
+.rounded-top10 {
+    border-top-right-radius: 10px !important;
+    border-top-left-radius: 10px !important;
+}
+
+.rounded-bottom10 {
+    border-bottom-right-radius: 10px !important;
+    border-bottom-left-radius: 10px !important;
+}
+
+.rounded5
+{
+    border-radius: 5px !important;
+}

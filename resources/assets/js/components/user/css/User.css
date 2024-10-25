@@ -1,0 +1,14 @@
+.products {
+  height: 50px;
+  overflow-y: auto;
+}
+
+.permissions {
+  height: 200px !important;
+  overflow-y: auto;
+}
+
+.additionalAgencies {
+  height: 250px !important;
+  overflow-y: auto;
+}
