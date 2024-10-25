@@ -1,0 +1,45 @@
+/* Averta */
+
+@font-face {
+    font-family: Averta;
+    src: url('./../fonts/Averta.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Averta;
+    src: url('./../fonts/Averta-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Averta;
+    src: url('./../fonts/Averta-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Averta;
+    src: url('./../fonts/Averta-Bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+}
+
+/* Gotham */
+
+@font-face {
+    font-family: Gotham;
+    src: url('./../fonts/Gotham-Book.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: Gotham;
+    src: url('./../fonts/Gotham-Medium.otf') format('opentype');
+    font-weight: 600;
+    font-style: normal;
+}

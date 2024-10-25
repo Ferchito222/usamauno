@@ -1,0 +1,1234 @@
+@import './normalize.styl';
+@import './loader.styl';
+
+$font--family = Averta, "Helvetica Neue", Helvetica, Arial, sans-serif
+
+transition(transition)
+  -webkit-transition transition
+  -moz-transition transition
+  -o-transition transition
+  transition transition
+
+boxSizing()
+  -webkit-box-sizing border-box
+  -moz-box-sizing border-box
+  box-sizing border-box
+
+html
+  font-family $font--family
+  font-size 1rem
+
+/* Menu */
+.Header
+  display flex
+  justify-content space-between
+  align-items center
+  position fixed
+  top 0
+  left 0
+  width 100%
+  box-shadow 0px 1px 3px rgba(0,0,0,0.2)
+  background #454647
+  z-index 99
+  .Header-logo
+    display block
+    width auto
+    padding 10px 40px
+    color #ffffff
+    font-size 2rem
+
+.menu
+  margin 0 auto
+  box-shadow none
+  ul
+    display block
+    margin 0
+    padding 0
+    text-align left
+  li
+    margin 0px
+    list-style none
+    &:hover
+      .sub-menu
+        z-index 1
+        visibility visible
+  a
+    transition(all linear 0.15s)
+    color #ffffff
+  .arrow
+    font-size 90%
+    line-height 0%
+  & > ul
+    & > li
+      // float left
+      display inline-block
+      position relative
+      & > a
+        padding 20px 30px
+        display inline-block
+        text-shadow 0px 1px 0px rgba(0,0,0,0.1)
+
+.menu li:hover > a, .menu .current-item > a
+  text-decoration none
+  color #13b1cd
+
+.menu > ul > li:hover > a, .menu > ul > .current-item > a
+  background #f2f2f2
+
+.sub-menu
+  min-width 130%
+  width auto
+  padding 0px 20px
+  position absolute
+  top 100%
+  right 0px
+  z-index -1
+  visibility hidden
+  transition(opacity linear 5s)
+  box-shadow 0px 2px 3px rgba(0,0,0,0.2)
+  background #f2f2f2
+  li
+    display block
+    a
+      white-space nowrap
+      padding 15px 30px
+      display block
+      color #272829
+      font-size 90%
+      text-align center
+
+.sub-menu li a:hover, .sub-menu .current-item a
+  background #454647
+
+/* App */
+.App
+  display block
+  width 95%
+  margin 0 auto
+  margin-top 76px
+
+/* Grid */
+.Grid-container
+  display grid
+  color #333
+  grid-template-columns 10% repeat(2, 5%) repeat(2, 5%) repeat(4, 10%) repeat(2, 5%) repeat(2, 5%) 10%
+  grid-template-rows 55px auto auto auto auto auto
+  grid-template-areas "header header header header header header header header header header header header header header"\
+                      "widget widget widget widget widget . . . action action action action action action"\
+                      ". . box2 box2 box2 box2 box2 box2 box2 box2 box2 box2 . ."\
+                      "main main main main main main main main main main main main main main"\
+                      ". . . . box box box box box box . . . ."\
+                      "footer footer footer footer footer footer footer footer footer footer footer footer footer footer"
+  // justify-items center
+  // align-items center
+
+.Grid-header
+  width 100%
+  grid-area header
+  justify-self center
+  align-self center
+  h5
+    font-size 1.64rem
+    font-weight 600
+    text-align center
+    text-decoration underline
+
+.Grid-widget
+  grid-area widget
+  h4
+    font-size 1rem
+    margin 5px auto
+
+.Grid-action
+  grid-area action
+  justify-self end
+  align-self center
+  padding 0 10px
+
+.Grid-main
+  grid-area main
+  background-color #f3f3f6
+  height auto
+  margin-top 5px
+  padding-top 5px
+
+.Grid-box
+  grid-area box
+  background-color #f3f3f6
+  height auto
+  padding 5px
+  text-align center
+
+.Grid-box2
+  grid-area box2
+  background-color #f3f3f6
+  height auto
+  padding 5px
+  .tree-view-item
+    font-size .7rem !important
+
+.Grid-footer
+  grid-area footer
+
+/* Buttons */
+$button--default = #546e7a
+$button--primary = #009ED8
+$button--success = #4CAF50
+$button--danger = #f44336
+$button--warning = #ff8f00
+$button--info = #00acc1
+$button--secundary = #607d8b
+
+.Btn
+.Btn-sm
+.Btn-xs
+  display inline-block
+  position relative
+  padding .8em 2.4em
+  //padding-right 4.7em
+  background $button--default
+  border none
+  border-radius .2rem
+  font-weight 300
+  color #ffffff
+  transition(.2s)
+  min-width 5em
+  cursor pointer
+  text-align center
+  white-space nowrap
+  vertical-align middle
+  font-weight 300
+  &:hover
+    -webkit-animation none
+    -webkit-transform scale(1.02)
+    animation none
+    transform scale(1.02)
+  &:active,
+  &:focus
+    outline none
+  > .material-icons
+    margin-right 6px
+    vertical-align middle
+
+.Btn-primary
+  background $button--primary
+  &:hover
+    background darken($button--primary, 5%)
+
+.Btn-success
+  background $button--success
+  &:hover
+    background darken($button--success, 5%)
+
+.Btn-danger
+  background $button--danger
+  &:hover
+    background darken($button--danger, 5%)
+
+.Btn-warning
+  background $button--warning
+  &:hover
+    background darken($button--warning, 5%)
+
+.Btn-info
+  background $button--info
+  &:hover
+    background darken($button--info, 5%)
+
+.Btn-secundary
+  background $button--secundary
+  &:hover
+    background darken($button--secundary, 5%)
+
+.Btn-sm
+  padding .6em 2em
+
+.Btn-xs
+  padding .4em 1em
+
+.Btn-icon
+.Btn-icon-sm
+  padding .65em 1em
+  // line-height 1.5
+  font-size 16px
+  min-width 1.6em
+  // height 1.4em
+  > .material-icons
+    vertical-align middle
+    margin-right 0
+
+.Btn-icon-sm
+  padding .4em .5em
+
+.Btn-spaceLeft
+  margin-left 5px
+
+/* Table Design */
+$table--header-font-family = Gotham, sans-serif
+$table--header-font-weight = normal
+$table--header-font-color = #757575
+
+$table--cell-padding = 0.2rem
+$table--condensed-cell-padding = $table--cell-padding / 2
+
+$table--bg = #fff
+$table--bg-accent = #f5f5f5
+$table--bg-hover = rgba(0,0,0,.12)
+$table--bg-active = $table--bg-hover
+$table--border-color = #e0e0e0
+
+.Table
+  width 99%
+  max-width 100%
+  margin 0 auto 1.5rem auto
+  background-color $table--bg
+  font-family $table--header-font-family
+  font-size .65rem
+  font-weight normal
+  > thead,
+  > tbody,
+  > tfoot
+    > tr
+      transition(all .3s ease)
+      > th,
+      > td
+        text-align center
+        padding $table--cell-padding
+        vertical-align top
+        border-top 0
+        transition(all .3s ease)
+  > thead > tr > th
+    font-weight 600
+    font-size .7rem
+    color $table--header-font-color
+    vertical-align middle
+    text-align center
+    border-bottom 1px solid rgba(0,0,0,.12)
+    padding 8px 1px
+  > caption + thead,
+  > colgroup + thead,
+  > thead:first-child
+    > tr:first-child
+      > th,
+      > td
+        border-top 0
+  > tbody + tbody
+    border-top 1px solid rgba(0,0,0,.12)
+  
+  .Table
+    background-color $table--bg
+  
+  .No-border
+    border: 0;
+
+.Table-condensed
+  > thead,
+  > tbody,
+  > tfoot
+    > tr
+      > th,
+      > td
+        padding $table--condensed-cell-padding
+
+.Table-bordered
+  border 0
+  > thead,
+  > tbody,
+  > tfoot
+    > tr
+      > th,
+      > td
+        border 0
+        border-bottom 1px solid $table--border-color
+  > thead > tr
+    > th,
+    > td
+      border-bottom-width 2px
+
+.Table-striped
+  > tbody > tr:nth-child(odd)
+    > td,
+    > th
+      background-color $table--bg-accent
+
+.Table-hover
+  > tbody > tr:hover
+    > td,
+    > th
+      background-color $table--bg-hover
+
+.Table-responsiveVertical
+  @media screen and (max-width: 768px)
+    // Tighten up spacing
+    > .table
+      margin-bottom 0
+      background-color transparent
+      > thead,
+      > tfoot
+        display none
+
+      > tbody
+        display block
+
+        > tr
+          display block
+          border 1px solid $table--border-color
+          border-radius 2px
+          margin-bottom $table--cell-padding
+
+          > td
+            background-color $table--bg
+            display block
+            vertical-align middle
+            text-align right
+          > td[data-title]:before
+            content attr(data-title)
+            float left
+            font-size inherit
+            font-weight $table--header-font-weight
+            color $table--header-font-color
+    // Special overrides for shadows
+    &.shadow-z-1
+      -webkit-box-shadow none
+      -moz-box-shadow none
+      box-shadow none
+      > .table > tbody > tr
+        border none
+        //.shadow-z-1()
+    // Special overrides for the bordered tables
+    > .Table-bordered
+      border 0
+      // Nuke the appropriate borders so that the parent can handle them
+      > tbody
+        > tr
+          > td
+            border 0
+            border-bottom 1px solid $table--border-color
+          > td:last-child
+            border-bottom 0
+    // Special overrides for the striped tables
+    > .Table-striped
+      > tbody > tr > td,
+      > tbody > tr:nth-child(odd)
+          background-color $table--bg
+      > tbody > tr > td:nth-child(odd)
+          background-color $table--bg-accent
+    // Special overrides for hover tables
+    > .Table-hover
+      > tbody
+        > tr:hover > td,
+        > tr:hover
+          background-color $table--bg
+        > tr > td:hover
+          background-color $table--bg-hover
+
+.Table-striped.Table-mcTeal > tbody > tr:nth-child(odd) > td,
+.Table-striped.Table-mcTeal > tbody > tr:nth-child(odd) > th
+  background-color rgba(#E0F7FA, 0.4)
+
+.Table-hover.Table-mcTeal > tbody > tr:hover > td,
+.Table-hover.Table-mcTeal > tbody > tr:hover > th
+  background-color #b2dfdb
+
+@media screen and (max-width: 767px)
+  .Table-responsiveVertical .Table-striped.table-mcTeal > tbody > tr > td,
+  .Table-responsiveVertical .Table-striped.table-mcTeal > tbody > tr:nth-child(odd)
+      background-color $table--bg
+
+  .Table-responsiveVertical .Table-striped.table-mcTeal > tbody > tr > td:nth-child(odd)
+      background-color #e0f2f1
+
+  .Table-responsiveVertical .Table-hover.Table-mcTeal > tbody > tr:hover > td,
+  .Table-responsiveVertical .Table-hover.Table-mcTeal > tbody > tr:hover
+      background-color $table--bg
+
+  .Table-responsiveVertical .Table-hover.Table-mcTeal > tbody > tr > td:hover
+      background-color #b2dfdb
+
+/* List Dropdown */
+.Wrapper-dropdown
+  position relative
+  width 7em
+  margin 0 auto
+  padding 12px 10px
+  background rgba(84, 110, 122, 0.8)
+  // box-shadow 0 2px 0 rgba(0,0,0,0.2)
+  cursor pointer
+  outline none
+  transition(all 0.3s ease-out)
+  font-weight 600
+  color #ffffff
+  line-height 15px
+  > .material-icons
+    vertical-align middle
+    font-size 1rem
+  .Dropdown
+    position absolute
+    // top 100%
+    left 0
+    right 0
+    width 20em
+    padding-left 0
+    background #fff
+    border-radius 0 0 5px 5px
+    border 1px solid rgba(0,0,0,0.2)
+    border-top none
+    border-bottom none
+    list-style none
+    transition(all 0.3s ease-out)
+    max-height 0
+    overflow hidden
+    z-index 1
+    li
+      padding 0 5px
+      a
+        display block
+        text-decoration none
+        text-align left
+        color #333
+        padding 10px 0
+        transition(all 0.3s ease-out)
+        border-bottom 1px solid #e6e8ea
+        font-weight normal
+      &:last-of-type
+        a
+          border none
+      i
+        margin-right 5px
+        color inherit
+        vertical-align middle
+      &:hover
+        a
+          color #57a9d9
+  &.active
+    border-radius 5px 5px 0 0
+    background #3ea7e0
+    box-shadow none
+    border-bottom none
+    &:after
+      border-color #82d1ff transparent
+    .Dropdown
+      border-bottom 1px solid rgba(0,0,0,0.2)
+      max-height 400px
+
+/* Badge */
+.Badge
+  display block
+  padding .25em .4em
+  // border 1px solid #cccccc
+  border-radius .25rem
+  background-color #ffffff
+  color #000000
+  text-align center
+  font-weight bold
+  cursor default
+  white-space nowrap
+  vertical-align baseline
+  > .material-icons
+    font-size 1rem
+
+.Badge-primary
+  background-color $button--primary
+  color #ffffff
+
+.Badge-success
+  background-color #66BB6A
+  color #ffffff
+
+.Badge-danger
+  background-color #ef5350
+  color #ffffff
+
+/* Menu DropDown */
+.Action-dropdown
+  position relative
+  width 30px
+  vertical-align middle
+  margin 0 auto
+  padding 0
+  // background-color #5b5b5b
+  text-align center
+  a
+    text-decoration none
+    color inherit
+    display block
+    padding 3px 0px
+  .Action-dropdownTop
+    color #5b5b5b
+  li
+    list-style: none;
+    .Action-dropdownBox
+      position absolute
+      top 0
+      right 0
+      height 0
+      // overflow hidden
+      display none
+      background #f0f0f0
+      margin 30px 0 -15px 0
+      padding 0
+      width 250px
+      vertical-align middle
+      z-index 1
+      li
+        width 100%
+        color #1E1E1E
+        border-bottom 1px solid #e3e3e3
+        &:hover
+          color #f0f0f0
+          background-color #ea9564
+        a
+          display block
+          padding 10px 10px 10px 5px
+          text-align right
+          font-weight 600
+          font-size .7rem
+          > .material-icons
+            font-size .9rem
+            margin-left 8px
+            vertical-align middle
+
+.Action-dropdown li:hover .Action-dropdownBox, .Action-dropdown li:active .Action-dropdownBox
+  display block
+  background #f0f0f0
+  height auto !important
+  // animation box 0.3s ease
+  // animation-iteration-count 1
+  // animation-fill-mode forwards
+
+/* @keyframes box
+  from
+    height 0
+  to
+    height auto */
+
+/* Input Search */
+#Box-search
+  outline none
+  -webkit-appearance textfield
+  -webkit-box-sizing content-box
+  font-family inherit
+  font-size .8rem
+  background #ededed url(../img/search-icon.png) no-repeat 9px center
+  border solid 1px #ccc
+  padding 9px 10px 9px 32px
+  width 43px
+  -webkit-border-radius 10em
+  -moz-border-radius 10em
+  border-radius 10em
+  transition(all .5s)
+  cursor pointer
+  &:hover
+    background-color #fff
+  &:focus
+    width 250px
+    background-color #fff
+    border-color #66CC75
+    cursor auto
+    -webkit-box-shadow 0 0 5px rgba(109,207,246,.5)
+    -moz-box-shadow 0 0 5px rgba(109,207,246,.5)
+    box-shadow 0 0 5px rgba(109,207,246,.5)
+
+input::-webkit-search-decoration,
+input::-webkit-search-cancel-button
+  display none
+
+input
+  &:-moz-placeholder
+    color #999
+  &::-webkit-input-placeholder
+    color #999
+
+/* Modal */
+.Modal-dialog
+  position fixed
+  top 0
+  right 0
+  bottom 0
+  left 0
+  background rgba(0,0,0,0.8)
+  z-index 999
+  opacity 0
+  transition(opacity 0.1s ease-in)
+  pointer-events none
+  color #444444
+  &:target
+    opacity 1
+    pointer-events auto
+  & > .Modal-content
+    width max-content
+    max-width 90%
+    min-width 600px
+    max-height 93vh
+    position relative
+    margin 2% auto
+    padding 5px 20px 5px 20px
+    border-radius 10px
+    background #fefefe
+    > .Modal-close
+      background #606061
+      color #FFFFFF
+      line-height 20px
+      position absolute
+      right 12px
+      text-align center
+      top 10px
+      width 24px
+      padding-top 2px
+      text-decoration none
+      font-weight 600
+      font-size .8rem
+      border-radius 4px
+      transition(transform .5s ease)
+      &:hover
+        transform rotate(540deg)
+    & > .Modal-body
+      max-height 93vh
+      overflow auto
+      .Modal-title
+        width 80%
+        border-bottom 1px solid #e8e8e8
+        margin 13px auto
+        font-size 1.3rem
+        text-align center
+
+/* Forms */
+.Box
+  display flex
+  flex-direction right
+  width 100%
+  .Box-col,
+  .Box-col2,
+  .Box-col3,
+  .Box-col4,
+  .Box-col5,
+  .Box-col6
+    padding 5px
+    boxSizing()
+  & .Title-second
+    width fit-content
+    margin 5px 0
+    border-bottom 1px solid #d4d3d3
+
+/* 12 Columns */
+.Box-col
+  flex 0 0 100%
+  width 100%
+
+/* 2 Columns */
+.Box-col2
+  flex 0 0 16.666667%
+  width 16.666667%
+
+/* 3 Columns */
+.Box-col3
+  flex 0 0 25%
+  width 25%
+
+/* 4 Columns */
+.Box-col4
+  flex 0 0 33.333333%
+  width 33.333333%
+
+/* 5 Columns */
+.Box-col5
+  flex 0 0 41.666667%
+  width 41.666667%
+
+/* 6 Columns */
+.Box-col6
+  flex 0 0 50%
+  width 50%
+
+/* Form */
+form
+  width auto
+  margin 0 auto
+  background #f4f7f8
+  border-radius 8px
+
+  input[type="text"],
+  input[type="password"],
+  input[type="date"],
+  input[type="datetime"],
+  input[type="email"],
+  input[type="number"],
+  input[type="search"],
+  input[type="tel"],
+  input[type="time"],
+  input[type="url"],
+  textarea,
+  select
+    background rgba(255,255,255,0.1)
+    border none
+    font-size .75rem
+    height auto
+    margin 0
+    margin-bottom 10px
+    outline 0
+    padding 8px 15px
+    width 100%
+    background-color #e8eeef
+    color #606970
+    font-weight normal
+    box-shadow 0 1px 0 rgba(0,0,0,0.03) inset
+    border 1px solid #9cd1da6e
+    boxSizing()
+    &:disabled
+      background-color #dfe3e4
+      border 1px solid #dfe3e4
+      cursor not-allowed
+  
+  input[type="radio"],
+  input[type="checkbox"]
+    margin 0 4px 8px 0
+
+  select
+    height 32px
+    border-radius 2px
+  
+  fieldset
+    border none
+    margin 0
+    padding 5px 10px 0 10px
+
+  legend
+    font-size 1.4em
+    margin-bottom 10px
+
+  label
+    display block
+    margin-bottom 5px
+    font-size .8rem
+    &.light
+      font-weight 300
+      display inline
+    &.Label-code
+      display inline-block
+      width 15%
+      padding 6px 0
+      margin-right 2%
+      background #656464
+      color #ffffff
+      text-align center
+      font-weight bold
+      font-size .9rem
+      & + input[type="text"]
+        width 83%
+    &.Label-dark
+      background-color #868e96
+      color #ffffff
+      padding .25em .4em
+      border-radius .25rem
+      vertical-align baseline
+      white-space nowrap
+
+  .number
+    background-color #5fcf80
+    color #fff
+    height 30px
+    width 30px
+    display inline-block
+    font-size .8em
+    margin-right 4px
+    line-height 30px
+    text-align center
+    text-shadow 0 1px 0 rgba(255,255,255,0.2)
+    border-radius 100%
+  
+  input[type="text"].Form-option
+    width 50%
+    & + select
+      width 45%
+      margin-left 5%
+  
+  .Input-addOn
+    display flex
+    & > .Input-addOnItem
+      padding 4px 15px
+      border 1px solid #cccccc
+      background-color #e9ecef
+      border-right none
+      border-radius .4em 0 0 .4em
+      color #495057
+    & > .Input-addOnField
+      flex 1
+      margin-bottom 0
+  
+  button:disabled,
+  button[disabled]
+    // background-color: #cccccc;
+    background darken($button--success, 5%)
+    color #c4c4c4
+    cursor no-drop
+
+  .Text-error
+    color white
+    background #ea9696
+    border-radius 0 0 5px 5px
+    width 100%
+    margin -10px 0 10px 0
+    padding 1px 15px
+    font-size .75rem
+    font-weight normal
+    text-align center
+    boxSizing()
+
+/* @media screen and (min-width: 480px)
+  form
+    max-width 480px */
+
+/* Checkbox Radio button style */
+$color--white = #FFFFFF
+$color--light-grey = #E6E6E6
+$color--grey = #CCCCCC
+$color--dark-grey = #7B7B7B
+$color--primary = #2AA1C0
+$color--secondary = #009688
+
+.Control
+  display block
+  position relative
+  padding-left 30px
+  width max-content
+  margin 0 auto 15px
+  cursor pointer
+  font-size 18px
+  
+  // Hide default browser input
+  input
+    position absolute
+    z-index -1
+    opacity 0
+
+.Control-indicator
+  position absolute
+  top -2px
+  left 0
+  height 20px
+  width 20px
+  background $color--light-grey
+  
+  .Control-radio &
+    border-radius 50% // Makes radio buttons circlular
+  
+  // Hover and focus
+  .Control:hover input ~ &,
+  .Control input:focus ~ &
+    background $color--grey
+  
+  // Checked
+  .Control input:checked ~ &
+    background $color--primary
+
+  // Hover when checked
+  .Control:hover input:not([disabled]):checked ~ &,
+  .Control input:checked:focus ~ &
+    background $color--secondary
+  
+  // Hide default browser input
+  .Control input:disabled ~ &
+    background $color--light-grey
+    opacity 0.6
+    pointer-events none
+
+  &:after
+    content ''
+    position absolute
+    display none // Hide check
+
+    .Control input:checked ~ &
+      display block // Show check
+
+    // Checkbox tick
+    .Control-checkbox &
+      left 8px
+      top 4px
+      width 3px
+      height 8px
+      border solid $color--white
+      border-width 0 2px 2px 0
+      transform rotate(45deg)
+    
+    // Disabled tick colour
+    .Control-checkbox input:disabled ~ &
+      border-color $color--dark-grey
+
+    // Radio button inner circle
+    .Control-radio &
+      left 7px
+      top 7px
+      height 6px
+      width 6px
+      border-radius 50%
+      background $color--white
+
+    // Disabled circle colour
+    .Control-radio input:disabled ~ &
+      background $color--dark-grey
+
+/* File */
+.Input-file
+  width 0.1px
+  height 0.1px
+  opacity 0
+  overflow hidden
+  position absolute
+  z-index -1
+
+.Input-file
+  & + label
+    max-width 80%
+    font-weight 700
+    text-overflow ellipsis
+    white-space nowrap
+    cursor pointer
+    display inline-block
+    overflow hidden
+    padding .625rem 1.25rem
+    *
+    svg
+      width 1em
+      height 1em
+      vertical-align middle
+      margin-top -0.25em
+      margin-right 0.25em
+
+.Input-file:focus + label,
+.Input-file.has-focus + label
+  outline 1px dotted #000
+  outline -webkit-focus-ring-color auto 5px
+
+.Input-file1
+  & + label
+    color #939393
+    figure
+      width 60px
+      height 60px
+      border-radius 50%
+      background-color #67acdb
+      display block
+      padding 20px
+      margin 0 auto 10px
+    svg
+      width 100%
+      height 100%
+      fill #f1e5e6
+
+.Input-file1:focus + label,
+.Input-file1.has-focus + label,
+.Input-file1 + label:hover
+  color #939393
+
+.Input-file1:focus + label figure,
+.Input-file1.has-focus + label figure,
+.Input-file1 + label:hover figure
+  background-color #419cd8
+
+/* V-Select */
+.v-select,
+.v-select
+  & .dropdown-toggle,
+  & .dropdown-menu
+    color #606970 !important
+    font-size .74rem
+  & input[type=search]
+    height 30px !important
+  & .open-indicator
+    bottom 4px !important
+  & .dropdown-toggle
+    background-color white !important
+  & .selected-tag
+    line-height 20px !important
+
+/* Lists */
+$lists--enabled = #138496
+$lists--disabled = #ef9a9a
+
+.Lists
+  width max-content
+  min-width 330px
+  margin 0 auto
+  ol
+    counter-reset li
+    list-style none
+    *list-style decimal
+    font-size .7rem
+    padding 0
+    // margin-bottom 4em
+    ol
+      margin 0 0 0 2em
+  a
+    position relative
+    display block
+    padding .4em 1.5em .4em 2em
+    *padding .4em
+    margin .5em 0
+    background $lists--enabled
+    color #ffffff
+    text-decoration none
+    -moz-border-radius .3em
+    -webkit-border-radius .3em
+    border-radius 10em
+    transition all .2s ease-in-out
+    &:hover
+      background $lists--disabled
+      text-decoration none
+      transform scale(1.05)
+    &:before
+      content counter(li)
+      counter-increment li
+      position absolute
+      left -1.3em
+      top 50%
+      margin-top -1.3em
+      background $lists--enabled
+      height 2em
+      width 2em
+      line-height 2em
+      border .3em solid #fff
+      text-align center
+      font-weight bold
+      -moz-border-radius 2em
+      -webkit-border-radius 2em
+      border-radius 2em
+      color #FFF
+    &.List-disabled
+      background $lists--disabled
+
+.Text-center
+  text-align center
+
+.Text-right
+  text-align right
+
+/* Card */
+.Card
+  width 99.5%
+  margin .3em auto
+  display flex
+  flex-direction column
+  background #ffffff
+  border 1px solid rgba(0,0,0,.125)
+  border-radius .25rem
+  boxSizing()
+  .Card-header
+    padding .75rem 1.25rem
+    background-color rgba(0,0,0,0.01);
+    border-bottom 1px solid rgba(0,0,0,0.125)
+    .vue-js-switch .v-switch-label
+      font-size .9rem !important
+  .Card-body
+    flex 1 1 auto
+    padding .4em
+    .vue-js-switch .v-switch-label
+      font-size .8rem !important
+    .Btn-xs
+      line-height normal
+
+/* Pagination */
+.Pagination
+  width 50%
+  margin: 1rem auto
+  text-align center
+
+.Pagination .Pagination-counter
+  display inline-block
+  width 140px
+  font-weight 600
+  font-size 1.4rem
+  color #546E7A
+
+.Pagination .Pagination-button
+  display inline-block
+  width 80px
+  height 40px
+  background-color #78909C
+  border .1rem solid #90A4AE
+  border-radius .2rem
+  color white
+  font-size .9rem
+  line-height 40px
+  text-decoration none
+  &:hover
+    background-color #546E7A
+
+// colors
+$color-1 = #2E4057; // Pickled Bluewood
+$color-2 = #64a281; // Aqua Forest
+$color-3 = #ffffff; // White
+// fonts 
+$primary-font = 'PT Sans', sans-serif;
+
+nav[role=navigation]
+  text-align center
+
+.cd-pagination
+  width 90%
+  max-width 768px
+  margin 2em auto
+  text-align center
+  li
+    display none
+    margin 0 .2em
+    background-color #ffffff
+    &.button
+      display inline-block
+  a
+    border 1px solid #e6e6e6
+    border-radius .25em
+    font-family $primary-font
+    color $color-1
+    text-decoration none
+    &:active
+      -webkit-transform scale(.9)
+      -moz-transform scale(.9)
+      -ms-transform scale(.9)
+      -o-transform scale(.9)
+      transform scale(.9)
+    &.disabled
+      color rgba(46, 64, 87, 0.4)
+      pointer-events none
+  .button
+    &:first-of-type
+      a
+        &::before
+          content '\00ab  '
+    &:last-of-type
+      a
+        &::after
+            content ' \00bb'
+  .current
+    background-color #64a281
+    border-color #64a281
+    color #fff
+    pointer-events none
+
+.cd-pagination a,
+.cd-pagination span
+  display inline-block
+  -webkit-user-select none
+  -moz-user-select none
+  -ms-user-select none
+  user-select none
+  padding .6em .8em
+  font-size .8rem
+
+.no-touch
+  .cd-pagination
+    a
+      &:hover
+        background-color #f2f2f2
+
+.cd-pagination a.disabled::before,
+.cd-pagination a.disabled::after
+  opacity .4
+
+@media only screen and (min-width:768px)
+  .cd-pagination
+    li
+      display inline-block
+
+@media only screen and (min-width:1170px)
+  .cd-pagination
+    margin 1em auto

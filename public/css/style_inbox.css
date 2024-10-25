@@ -1,0 +1,720 @@
+/*
+Template Name: SlickLab
+Build with : BS 3 +
+Author: Mosaddek Hossain
+*/
+
+/************************
+    Table of Content
+**************************/
+
+/*
+
+1. logo
+2. sidebar left
+3. sidebar collapsed
+4. header section
+5. sticky header
+6. non sticky header
+7. sidebar left widget
+8. left notification
+9. notification list
+10. language switch
+11. mail notification
+12. yamm css
+13. mega-menu
+14. right notification
+15. body content
+16. page heading
+17. state overview
+18. text color
+19. boxed view
+20. tools
+21. footer content
+22. mobile visit
+23. monthly page view
+24. team member
+25. cpu graph
+26. sale monitor
+27. dashboard v map
+28. flot chart
+29. code high light style
+30. right side bar
+31. chat
+32. info
+33. settings
+34. weather widget
+35. login page
+36. lock
+37. 404 page
+38. 500 page
+39. Checkbox and Radio buttons
+40. to do list
+41. mail inbox
+42. form layout
+43. picker
+44. Table
+45. general
+46. toastr
+47. font awesome & simple icon
+48. slider
+49. profile
+50. invoice
+51. widget
+52. Data Table
+53. form
+54. ion slider
+55. nestable
+56. timeline
+57. summernote
+58. form validation
+59. form wizard
+60. map
+61. calendar
+62. slick carousel
+
+*/
+@font-face {
+    font-family: 'Source Sans Pro';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url('../assets/css/roboot_google/ODelI1aHBYDBqgeIAH2zlNV_2ngZ8dMf8fLgjYEouxg.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Abel';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Abel'), local('Abel-Regular'), url('../assets/css/roboot_google/brdGGFwqYJxjg2CD1E9o7g.woff2') format('woff2');
+}
+@import url('font-awesome.css');
+/*table*/
+.table > thead > tr > th,
+.table > tbody > tr > td {
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+    border-bottom: 1px solid #e8e8e8;
+    text-align: center;
+}
+
+.table-bordered > thead > tr > th, .table-bordered > tbody > tr > th, .table-bordered > tfoot > tr > th, .table-bordered > thead > tr > td, .table-bordered > tbody > tr > td, .table-bordered > tfoot > tr > td {
+    border: 1px solid #e8e8e8;
+    text-align: center;
+}
+/* fin table*/
+/*----------------------------------
+    Checkbox and Radio buttons
+-------------------------------------*/
+
+.radio label, .checkbox label {
+    min-height: 20px;
+    margin-bottom: 0;
+    font-weight: normal;
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.checkbox-custom,
+.radio-custom {
+    margin: 10px 0 10px 0;
+    padding-left: 0px;
+    display: block;
+}
+
+.checkbox-custom.inline,
+.radio-custom.inline {
+    padding-left: 0px;
+    display: inline-block;
+    margin: 10px 0 10px 0;
+}
+
+.checkbox-custom label,
+.radio-custom label {
+    display: inline-block;
+    cursor: pointer;
+    position: relative;
+    padding-left: 30px !important;
+    margin-right: 15px;
+}
+
+.checkbox-custom label:before,
+.radio-custom label:before {
+    content: "";
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    position: absolute;
+    left: 0px;
+    border: 1px solid #dbdbdb;
+    margin-top: 4px;
+}
+
+
+.checkbox-custom input[type=radio][disabled] + label:after {
+    background-color: #e6e6e6;
+}
+
+.checkbox-custom label {
+    white-space: nowrap;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.checkbox-custom label:before {
+    top: -1px;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.checkbox-custom label::after {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    left: 2.5px;
+    top: 1px;
+    font-size: 12px;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.checkbox-custom input[type=checkbox] {
+    display: none;
+}
+
+.checkbox-custom input[type=checkbox]:checked + label:before {
+    border-width: 8px;
+}
+
+.checkbox-custom input[type=checkbox]:checked + label::after {
+    font-family: 'FontAwesome';
+    content: "\F00C";
+    color: #fff;
+}
+
+.checkbox-custom input[type=checkbox][disabled] + label {
+    opacity: 0.5;
+}
+
+.checkbox-custom input[type=checkbox][disabled] + label:before {
+    background-color: #e2e5e9;
+}
+
+.radio-custom label {
+    margin-bottom: 6px;
+}
+
+.radio-custom label:before {
+    border-radius: 50%;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.radio-custom input[type=radio]:checked + label:before {
+    border-width: 6px;
+}
+
+.radio-custom input[type=radio] {
+    display: none;
+}
+
+.radio-custom input[type=radio][disabled] + label {
+    opacity: 0.5;
+}
+
+.radio-custom.radio-success input[type=radio]:checked + label:before,
+.checkbox-custom.check-success input[type=checkbox]:checked + label:before{
+    border-color: #53D192;
+}
+
+.radio-custom.radio-primary input[type=radio]:checked + label:before,
+.checkbox-custom.check-primary input[type=checkbox]:checked + label:before{
+    border-color: #8f67b1;
+}
+
+.radio-custom.radio-info input[type=radio]:checked + label:before,
+.checkbox-custom.check-info input[type=checkbox]:checked + label:before{
+    border-color: #119dc9;
+}
+
+.radio-custom.radio-warning input[type=radio]:checked + label:before,
+.checkbox-custom.check-warning input[type=checkbox]:checked + label:before{
+    border-color: #ecc200;
+}
+
+.radio-custom.radio-danger input[type=radio]:checked + label:before,
+.checkbox-custom.check-danger input[type=checkbox]:checked + label:before{
+    border-color: #e55957;
+}
+
+.radio-custom.radio-dark input[type=radio]:checked + label:before,
+.checkbox-custom.check-dark input[type=checkbox]:checked + label:before{
+    border-color: #333;
+}
+
+
+
+/*------------------------
+    mail inbox
+------------------------*/
+
+.mail-box {
+    border-collapse: collapse;
+    border-spacing: 0;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.mail-box aside {
+    display: table-cell;
+    float: none;
+    height: 100%;
+    padding: 0;
+    vertical-align: top;
+}
+
+.mail-box .sm-side {
+    width: 25%;
+    background: #f5f5f5;
+}
+.mail-box .lg-side {
+    width: 75%;
+    background: #fff;
+}
+
+.mail-box .sm-side .m-title {
+    background: #e9e9eb;
+    padding: 10px 20px;
+    color: #32323a;
+    min-height: 80px;
+}
+
+.mail-box .sm-side .m-title h3 {
+    margin: 8px 0 0 0;
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.mail-box .sm-side .m-title span {
+    color: #a3a3a3;
+    font-size: 14px;
+}
+
+.inbox-body {
+    padding: 20px;
+    /*margin-bottom: 20px;*/
+}
+.inbox-body .btn-group {
+    margin-bottom: 20px;
+}
+
+.btn-compose {
+    background: #e55957;
+    padding: 12px 0;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+}
+
+.btn-compose2 {
+    background: #337ab7;
+    padding: 12px 0;
+    text-align: center;
+    width: 100%;
+    color: #fff;
+}
+.btn-compose:hover, .btn-compose:focus {
+    background: #c74d4c;
+    color: #fff;
+}
+
+ul.inbox-nav  {
+    display: inline-block;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.inbox-divider {
+    border-bottom: 1px solid #e0e0e1;
+}
+
+ul.inbox-nav li {
+    display: inline-block;
+    line-height: 45px;
+    width: 100%;
+}
+
+ul.inbox-nav li a  {
+    color: #6a6a6a;
+    line-height: 45px;
+    width: 100%;
+    display: inline-block;
+    padding: 0 20px;
+    border-right: 2px solid #f5f5f5;
+}
+
+ul.inbox-nav li a:hover, ul.inbox-nav li.active a, ul.inbox-nav li a:focus  {
+    color: #222223;
+    background: #fff;
+    border-right: 2px solid #53d192;
+}
+
+ul.inbox-nav li a i {
+    padding-right: 10px;
+    font-size: 16px;
+    color: #aaaaaa;
+}
+
+ul.inbox-nav li a span.label {
+    margin-top: 13px;
+}
+
+ul.labels-info li h4 {
+    padding-left:15px;
+    padding-right:15px;
+    padding-top: 5px;
+    color: #5c5c5e;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+
+ul.labels-info li, .inbox-small-cells .checkbox label {
+    margin: 0;
+}
+
+ul.labels-info li a {
+    color: #6a6a6a;
+    border-radius: 0;
+    border-right: 2px solid #f5f5f5;
+}
+
+ul.labels-info li a:hover, ul.labels-info li a:focus {
+    color: #222223;
+    background: #fff;
+    border-right: 2px solid #53d192;
+}
+
+ul.labels-info li a i {
+    padding-right: 10px;
+}
+
+.nav.nav-pills.nav-stacked.labels-info p {
+    margin-bottom: 0;
+    padding: 0 22px;
+    color: #9d9f9e;
+    font-size: 11px;
+}
+
+.inbox-head {
+    padding:20px 15px;
+    background: #f3f3f3;
+    color: #333;
+    min-height: 80px;
+}
+
+.inbox-head  h3 {
+    margin: 0;
+    display: inline-block;
+    padding-top: 6px;
+    font-weight: 300;
+}
+
+.all-check {
+    background: #fff;
+    border: 1px solid #e7e7e7;
+    padding-left: 10px;
+    height: 32px;
+    margin-right: -1px;
+}
+
+.all-check .checkbox-custom {
+    width: 30px;
+    margin: 5px 0 0 0;
+    position: relative;
+    top: -10px;
+}
+
+.inbox-small-cells .checkbox-custom {
+    margin: 0;
+    height: 35px;
+    width: 20px;
+}
+
+.all-check .checkbox-custom label:before {
+    /*top: -10px;*/
+}
+
+.table-inbox .checkbox {
+    margin: 5px 0 0 0;
+    width: 10px;
+}
+
+.table-inbox {
+    margin-bottom: 20px;
+    font-size: 13px;
+}
+
+.table-inbox > tbody > tr > td {
+    border-top: none;
+    vertical-align: middle;
+}
+
+.table-inbox tr td{
+    padding:5px 15px  !important;
+}
+
+
+.table-inbox tr td:hover{
+    cursor: pointer;
+}
+
+.table-inbox tr td .fa-star.inbox-started ,.table-inbox tr td .fa-star:hover{
+    color: #ffd200;
+}
+
+.table-inbox tr td .fa-star{
+    color: #d5d5d5;
+}
+
+.table-inbox tr.unread td {
+    font-weight: 600;
+}
+
+.table-inbox .avatar img, .table-inbox .avatar span {
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    display: inline-block;
+}
+
+.table-inbox .avatar span {
+    /*background: #929292;*/
+    text-align: center;
+    color: #fff;
+}
+
+ul.inbox-pagination  {
+    float: right;
+}
+
+ul.inbox-pagination li {
+    float: left;
+}
+
+.mail-option {
+    display: inline-block;
+    width: 100%;
+}
+
+.mail-option .chk-all, .mail-option .btn-group {
+    margin-right: 5px;
+}
+
+.mail-option .chk-all, .mail-option .btn-group a.btn {
+    border: 1px solid #e7e7e7;
+    padding: 5px 10px;
+    display: inline-block;
+    background: #fcfcfc;
+    color: #afafaf;
+}
+
+.inbox-pagination {
+    margin-bottom: 0;
+    list-style: none;
+}
+
+.inbox-pagination a.np-btn  {
+    border: 1px solid #e7e7e7;
+    padding: 5px 15px;
+    display: inline-block;
+    background: #fcfcfc;
+    color: #afafaf;
+}
+
+.mail-option .chk-all input[type=checkbox] {
+    margin-top: 0;
+}
+
+.mail-option .btn-group a.all {
+    padding: 0;
+    border: none;
+}
+
+.inbox-pagination a.np-btn {
+    margin-left: 5px;
+}
+
+.inbox-pagination li span {
+    display: inline-block;
+    margin-top: 7px;
+    margin-right: 5px;
+}
+
+.fileinput-button {
+    border: 1px solid #e6e6e6;
+    background: #eeeeee;
+}
+
+.inbox-body .modal .modal-body input, .inbox-body .modal .modal-body textarea{
+    border: 1px solid #e6e6e6;
+    box-shadow: none;
+}
+
+.inbox-body .btn {
+    border-radius: 0;
+}
+
+.btn-send, .btn-send:hover {
+    background: #00A8B3;
+    color: #fff;
+}
+
+.btn-send:hover {
+    background: #009da7;
+}
+
+.modal-header h4.modal-title {
+    font-weight: normal;
+}
+
+.modal-body label {
+    font-weight: 400;
+}
+
+.heading-inbox h4{
+    font-size: 30px;
+    font-weight: 300;
+    color: #444;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+
+.sender-info {
+    margin-bottom: 20px;
+}
+
+.sender-info .date {
+    margin: 5px 20px 0 0;
+    color: #a3a3a3;
+}
+
+.sender-info img {
+    width: 50px;
+    height: 50px;
+}
+
+.s-info {
+    margin-left: 15px;
+    display: inline-block;
+}
+
+.s-info strong {
+    display: block;
+}
+
+.s-info span {
+    color: #a3a3a3;
+}
+
+.sender-dropdown {
+    border:1px solid #eaeaea;
+    padding:0 3px;
+    color: #777;
+    font-size: 10px;
+    width: 18px;
+    display: inline-block;
+}
+
+.view-mail a {
+    color: #9c78cd;
+}
+
+.view-mail p {
+    line-height: 25px;
+}
+
+.attachment-mail {
+    margin-top: 30px;
+}
+
+.attachment-mail h5 {
+    font-weight: bold;
+}
+
+.attachment-mail ul {
+    width: 100%;
+    display: inline-block;
+    margin-bottom: 20px;
+    list-style: none;
+    padding: 0;
+}
+
+.attachment-mail ul li {
+    float: left;
+    width: 180px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #dfdfdf;
+    text-align: center;
+}
+
+.attachment-mail ul li a{
+    padding: 5px;
+    display: inline-block;
+    height: 110px;
+    line-height: 98px;
+}
+
+.attachment-mail ul li img {
+    width: 100%;
+}
+
+.attachment-mail ul li span {
+    float: right;
+}
+.attachment-mail .file-name {
+    float: left;
+    background: #f5f5f5;
+    width: 100%;
+    padding: 8px;
+    border-top: 1px solid #dfdfdf;
+    font-size: 12px;
+    cursor: pointer;
+}
+
+
+.attachment-mail .file-name i {
+    padding-right: 5px;
+}
+
+
+.no-pad {
+    padding: 0px;
+}
+
+
+.mail-box .checkbox-custom label::after {
+    top: 3px;
+}
+
+.mail-box .mail-option .checkbox-custom label::after {
+    top: 1px;
+}
+
+.team-member-info{
+    background-color: #9c78cd;
+    width:100%;
+}
+.reply-mail {
+    border-top: 1px solid #e1e1e1;
+    padding-top: 30px;
+}
+
+
+

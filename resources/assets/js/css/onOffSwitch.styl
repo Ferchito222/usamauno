@@ -1,0 +1,43 @@
+.onoffswitch
+    margin auto
+    position relative
+    width 65px
+    -webkit-user-select none
+    -moz-user-select none
+    -ms-user-select none
+
+.onoffswitch-checkbox
+    display none
+    &:checked
+        & + .onoffswitch-label
+            background-color #3BAAEB
+            &:before
+                right 0px
+
+.onoffswitch-label
+    display block
+    overflow hidden
+    cursor pointer
+    height 25px
+    padding 0
+    line-height 25px
+    border 2px solid #E3E3E3
+    border-radius 25px
+    background-color #B0BEC5
+    transition background-color 0.2s ease-in
+    &:before
+        content ""
+        display block
+        width 28px
+        margin 0px
+        background #FFFFFF
+        position absolute
+        top 0
+        bottom 0
+        right 35px
+        border 2px solid #E3E3E3
+        border-radius 28px
+        transition all 0.2s ease-in 0s
+
+.onoffswitch-checkbox:checked + .onoffswitch-label, .onoffswitch-checkbox:checked + .onoffswitch-label:before
+    border-color #3BAAEB
