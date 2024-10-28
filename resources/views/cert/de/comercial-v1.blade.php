@@ -661,7 +661,7 @@
                             <tr>
                                 <td style="width: 25%; text-align: center;"></td>
                                 <td style="width: 50%; text-align: center;">
-                                    CERTIFICADO INDIVIDUAL DE SEGURO DE VIDA DE DESGRAVAMEN N˚
+                                    CERTIFICADO INDIVIDUAL DE SEGURO DE VIDA DE DESGRAVAMEN No {{ $header->issue_number }}
                                     <br>
                                     Formato aprobado por la Superintendencia de Pensiones, Valores y Seguros mediante Resolución Administrativa N°161/09 del 20 de Marzo de 2009
                                     <br>
@@ -821,10 +821,10 @@
                         
                     @endif
                     @if($detail->cesantia == true)
-                        <page>
+                        {{-- <page>
                             <div style="page-break-before: always;">&nbsp;</div>
                         </page>
-                        @include('cert.de.cesantia-v1')
+                        @include('cert.de.cesantia-v1') --}}
                     @endif
                 @endif
 

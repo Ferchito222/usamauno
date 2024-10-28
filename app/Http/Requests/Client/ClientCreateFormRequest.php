@@ -74,7 +74,8 @@ class ClientCreateFormRequest extends Request
             }
         }
 
-        if($this->request->get('economic_activity_type_code') == 2 && $this->request->get('credit_product') != 'PCA'){
+        //if($this->request->get('economic_activity_type_code') == 2 && $this->request->get('credit_product') != 'PCA'){
+        if(true){
             $rules['cesantia'] = 'required';
             if($this->request->get('cesantia')==1){
                 $rules['company_work']          = 'required';

@@ -561,9 +561,14 @@
     @include('partials.fields', ['type'=>'hidden', 'id'=>'economic_activity_type_code', 'required'=>0,'value'=>$client->economic_activity_type_code])    
     @include('partials.fields', ['type'=>'hidden', 'id'=>'economic_activity_type', 'required'=>0,'value'=>$client->economic_activity_type])    
     @include('partials.fields', ['type'=>'hidden', 'id'=>'detail_operations', 'required'=>0,'value'=>$detail->detail_operations])    
-    <span style="display: {{ (old('economic_activity_type_code', $client->economic_activity_type_code)==2 && $header->creditProduct->slug != 'PCA')?'block':'none' }}">
-        <div class="col-xs-12 col-md-12">
+    {{-- <span style="display: {{ (old('economic_activity_type_code', $client->economic_activity_type_code)==2 && $header->creditProduct->slug != 'PCA')?'block':'none' }}"> --}}
+    <span>
+        {{-- <div class="col-xs-12 col-md-12">
             <legend class="text-bold" ng-init="workdata({{ old('cesantia', $detail->cesantia) }})">Cobertura de Desempleo - cliente {{ old('economic_activity_type',$client->economic_activity_type) }}</legend>
+            <small class="help-block">IMPORTANTE! LA PRESENTE COBERTURA UNICAMENTE SERA APLICABLE PARA CLIENTES EN SITUACION LABORAL DE DEPENDIENTE INDEFINIDA</small>
+        </div> --}}
+        <div class="col-xs-12 col-md-12">
+            <legend class="text-bold" ng-init="workdata({{ old('cesantia', $detail->cesantia) }})">Cobertura de Desempleo</legend>
             <small class="help-block">IMPORTANTE! LA PRESENTE COBERTURA UNICAMENTE SERA APLICABLE PARA CLIENTES EN SITUACION LABORAL DE DEPENDIENTE INDEFINIDA</small>
         </div>
         <div class="col-xs-12 col-md-6">
