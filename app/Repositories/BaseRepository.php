@@ -143,7 +143,7 @@ abstract class BaseRepository
 
         $this->reasonImc      = 'El Titular :name no cumple con el IMC. ';
         $this->reasonResponse = 'El Titular :name no cumple con el Cuestionario de Salud. ';
-        $this->reasonCumulus  = 'El monto total acumulado del :name es :cumulus Bs. y supera el monto maximo ' . 'permitido. Monto maximo permitido :amount_max USD. ';
+        $this->reasonCumulus  = 'El monto total acumulado del :name es :cumulus Bs. y supera el monto maximo ' . 'permitido. Monto maximo permitido :amount_max Bs. ';
         $this->reasonInmueble = 'El monto acumulado del riesgo asegurado :riesgo_asegurado del Titular :name es :cumulus Bs. y supera el monto maximo permitido. Monto maximo permitido para este caso :amount_max Bs. ';
         $this->reasonYear     = 'El Vehículo con placa :license_plate tiene una antiguedad mayor a :year_max años. ';
         $this->reasonAmount   = 'El valor asegurado del Vehículo con placa :license_plate excede el máximo valor permitido. Valor permitido: :amount_max USD. ';

@@ -87,13 +87,14 @@
                                         <strong>{{ $data['detail']->header->details->count() === 1 ? 'Titular' : 'Codeudor ' . ($data['detail']->header->details->count() - 1) }}: </strong>
                                         {{ $data['detail']->client->full_name }}
                                     </h5>
-                                    <div class="heading-elements">
-                                        <ul class="icons-list">
-                                        </ul>
-                                    </div>
+                                    <h5 class="panel-title">
+                                        <strong>Peso: </strong> {{ $data['detail']->client->weight }} Kg.
+                                    </h5>
+                                    <h5 class="panel-title">
+                                        <strong>Estatura: </strong> {{ $data['detail']->client->height }} cm.
+                                    </h5>
                                 </div>
                                 <hr/>
-
                                 <div class="panel-body">
                                     {!! Form::open(['route' => ['de.question.store', 'rp_id' => $rp_id, 'header_id' => $header_id, 'detail_id' => $detail_id],
                                       'method'        => 'post',

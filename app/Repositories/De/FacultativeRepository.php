@@ -236,10 +236,10 @@ class FacultativeRepository extends BaseRepository
         ];
 
         $facultative = false;
-        // $response    = $this->getEvaluationResponse($detail->response);
-        // $imc         = $detail->client->imc;
+        $response    = $this->getEvaluationResponse($detail->response);
+        $imc         = $detail->client->imc;
         $reason      = '';
-        // $activity    = ( $detail->client->activity->category === 'danger' ? true : false );
+        $activity    = ( $detail->client->activity->category === 'danger' ? true : false );
         $occupation  = false;
 
         foreach ($words as $word) {
@@ -250,12 +250,12 @@ class FacultativeRepository extends BaseRepository
             }
         }
 
-        /*if ($imc) {
+        if ($imc) {
             $reason .= str_replace([ ':name' ], [ $detail->client->full_name ], $this->reasonImc) . '<br>';
 
             $facultative = true;
-        }*/
-        /**
+        }
+        
         if ($response) {
             $reason .= str_replace([ ':name' ], [ $detail->client->full_name ], $this->reasonResponse) . '<br>';
 
@@ -267,10 +267,8 @@ class FacultativeRepository extends BaseRepository
 
             $facultative = true;
         }
-        /**/
+
         $amount_min = $this->parameter->amount_min;
-        if($detail->header->creditProduct->slug == 'PCA')
-            $amount_min = 20001;
             
         if ($this->parameter->slug == 'FA') {
             $titular = ($detail->header->details->first()->id == $detail->id)?'Titular':'Codeudor';
@@ -303,8 +301,13 @@ class FacultativeRepository extends BaseRepository
         /*
          * Cumulus to USD
          */
-        $exchangeRate = $retailerProduct->retailer->exchangeRate;
-        $cumulus      = $detail->cumulus / $exchangeRate->bs_value;
+        // $exchangeRate = $retailerProduct->retailer->exchangeRate;
+        // $cumulus      = $detail->cumulus / $exchangeRate->bs_value; 
+
+        /*
+         * Cumulus to BS
+         */
+        $cumulus = $detail->cumulus;
 
         foreach ($retailerProduct->parameters as $parameter) {
             /*if ($detail->header->creditProduct->slug === 'PMO') {
@@ -324,8 +327,6 @@ class FacultativeRepository extends BaseRepository
                 }
             }*/
             $amount_min = $parameter->amount_min;
-            if($detail->header->creditProduct->slug == 'PCA')
-                $amount_min = 20001;
             
             if ( ! in_array($parameter->slug, ['GE'])
                 && ( ( $cumulus >= $amount_min && $cumulus <= $parameter->amount_max )

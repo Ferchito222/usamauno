@@ -199,14 +199,17 @@ class HeaderRepository extends BaseRepository
             } elseif ($retailerProduct->type === 'MP') {
                 $rates = $retailerProduct->rates();
 
+                $coverage = $header->coverage;
+                $rates->where('ad_coverage_id', $header->coverage->id)->where('active', true);
+
                 //if ($header->creditProduct->slug === 'PCA') {
-                if (false) {
-                    $rates->whereHas('creditProduct', function ($q) use ($header) {
-                        $q->where('slug', $header->creditProduct->slug);
-                    });
-                } else {
-                    $rates->doesntHave('creditProduct');
-                }
+                // if (false) {
+                //     $rates->whereHas('creditProduct', function ($q) use ($header) {
+                //         $q->where('slug', $header->creditProduct->slug);
+                //     });
+                // } else {
+                //     $rates->doesntHave('creditProduct');
+                // }
 
                 $rates = $rates->get();
                 
@@ -223,7 +226,9 @@ class HeaderRepository extends BaseRepository
                         $details = $header->details->where('approved', true)->count();
                     }
                     
-                    $rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
+                    //$rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
+                    $rate_final = $rates->first()->rate_final;
+                    $details = 1;// a solicitud de Rodrigo Cherveches se quema la tasa para cada codeudor
                 }else
                     $rate_final = $rates->first()->rate_final;
             }

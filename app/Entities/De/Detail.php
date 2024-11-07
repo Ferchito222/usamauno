@@ -34,6 +34,7 @@ class Detail extends Model
         'rate_cesantia',
         'send_fortaleza',
         'detail_operations',
+        'date_entry',
     ];
 
     protected $casts = [
