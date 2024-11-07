@@ -67,16 +67,15 @@
                         <div class="panel panel-flat">
                             <div class="panel-heading">
                                 <h5 class="panel-title">
-                                    <strong>Cliente: </strong>
+                                    <strong>{{ $data['detail']->header->details->count() === 1 ? 'Titular' : 'Codeudor ' . ($data['detail']->header->details->count() - 1) }}: </strong>
                                     {{ $data['detail']->client->full_name }}
                                 </h5>
-                                <div class="heading-elements">
-                                    <ul class="icons-list">
-                                        <!--<li><a data-action="collapse"></a></li>
-                                        <li><a data-action="reload"></a></li>
-                                        <li><a data-action="close"></a></li>-->
-                                    </ul>
-                                </div>
+                                <h5 class="panel-title">
+                                    <strong>Peso: </strong> {{ $data['detail']->client->weight }} Kg.
+                                </h5>
+                                <h5 class="panel-title">
+                                    <strong>Estatura: </strong> {{ $data['detail']->client->height }} cm.
+                                </h5>
                             </div>
                             <hr/>
 

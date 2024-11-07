@@ -477,7 +477,7 @@ return [
 		'N-OPE' => 'Nueva Operación',
 		'REF'   => 'Refinanciamiento',
 		'REP'   => 'Reprogramación',
-		'R-EXC' => 'Regularización de Exclusión',
+		//'R-EXC' => 'Regularización de Exclusión',
 	    ],
     
         'type_of_contract' => [

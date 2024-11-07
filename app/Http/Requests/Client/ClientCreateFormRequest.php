@@ -78,14 +78,14 @@ class ClientCreateFormRequest extends Request
         if(true){
             $rules['cesantia'] = 'required';
             if($this->request->get('cesantia')==1){
-                $rules['company_work']          = 'required';
-                $rules['year_of_entry_to_work'] = 'required|numeric';
-                $rules['type_of_contract']      = 'required';
+                $rules['company_work'] = 'required';
+                $rules['date_entry'] = 'required|date_format:d/m/Y';
+                $rules['type_of_contract'] = 'required';
     
                 if($this->request->get('public_work') == 1){
-                    $rules['position']      = 'required';
-                    $rules['period']        = 'required';
-                    $rules['institution']    = 'required';
+                    $rules['position'] = 'required';
+                    $rules['period'] = 'required';
+                    $rules['institution'] = 'required';
                 }
             }
         }

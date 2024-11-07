@@ -253,6 +253,7 @@ return [
         'company_work'              => 'Empresa donde Trabaja',
         'year_of_entry_to_work'     => 'Año de ingreso',
         'own_damage_insurance'      => 'Seguro con Daños Propios',
+        'date_entry'                => 'Fecha de ingreso',
     ],
 
     'alpha_space'      => 'El campo :attribute sólo puede contener letras.',

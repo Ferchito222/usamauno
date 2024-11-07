@@ -53,7 +53,11 @@ class DetailRepository extends BaseRepository
             $this->model->cesantia = $this->data['cesantia'];
         else    
             $this->model->cesantia = false;
-            
+
+        if (key_exists('date_entry', $this->data) && $this->data['date_entry']!=''){
+            $date = $this->carbon->createFromFormat('d/m/Y', $this->data['date_entry']);
+            $this->model->date_entry = $date->format('Y-m-d');
+        } 
 
         return $this->saveModel();
     }
@@ -83,6 +87,11 @@ class DetailRepository extends BaseRepository
         }
 
         $this->model->cesantia = $this->data['cesantia'];
+        
+        if (key_exists('date_entry', $this->data) && $this->data['date_entry']!=''){
+            $date = $this->carbon->createFromFormat('d/m/Y', $this->data['date_entry']);
+            $this->model->date_entry = $date->format('Y-m-d');
+        } 
 
         return $this->saveModel();
     }

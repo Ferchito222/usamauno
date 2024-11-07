@@ -571,16 +571,19 @@
             <legend class="text-bold" ng-init="workdata({{ old('cesantia', $detail->cesantia) }})">Cobertura de Desempleo</legend>
             <small class="help-block">IMPORTANTE! LA PRESENTE COBERTURA UNICAMENTE SERA APLICABLE PARA CLIENTES EN SITUACION LABORAL DE DEPENDIENTE INDEFINIDA</small>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-xs-12 col-md-12">
             @include('partials.fields', ['type'=>'radio', 'label'=>'Desea Cobertura de Desempleo?', 'id'=>'cesantia', 'required'=>1,'value'=>(string)old('cesantia', $detail->cesantia), 'array'=>[['id'=>1, 'name'=>'Si'], ['id'=>0, 'name'=>'No']]])    
-            <span class="data_work" style="display: none">
-                @include('partials.fields', ['type'=>'text', 'label'=>'Empresa donde Trabaja', 'id'=>'company_work', 'required'=>1,'value'=>$client->company_work])    
-                @include('partials.fields', ['type'=>'text', 'label'=>'Año de ingreso', 'id'=>'year_of_entry_to_work', 'required'=>1,'value'=>$client->year_of_entry_to_work])    
-                @include('partials.fields', ['type'=>'combo2', 'label'=>'Tipo de Contrato', 'id'=>'type_of_contract', 'required'=>1,'value'=>$client->type_of_contract,'array'=>$data['type_of_contracts']->toArray()])    
-            </span>
+        </div>
+        <div class="col-xs-12 col-md-6 data_work" style="display: none">            
+            @include('partials.fields', ['type'=>'text', 'label'=>'Empresa donde Trabaja', 'id'=>'company_work', 'required'=>1,'value'=>$client->company_work])    
+            {{-- @include('partials.fields', ['type'=>'text', 'label'=>'Año de ingreso', 'id'=>'year_of_entry_to_work', 'required'=>1,'value'=>$client->year_of_entry_to_work])     --}}
+            @include('partials.fields', ['type'=>'date','label'=>'Fecha de ingreso','id'=>'date_entry','required'=>1,'value'=>$detail->date_entry])
+        </div>
+        <div class="col-xs-12 col-md-6 data_work" style="display: none">            
+            @include('partials.fields', ['type'=>'combo2', 'label'=>'Tipo de Contrato', 'id'=>'type_of_contract', 'required'=>1,'value'=>$client->type_of_contract,'array'=>$data['type_of_contracts']->toArray()])    
         </div>
     </span>
-    <div class="col-xs-12 col-md-6">
+    <div class="col-xs-12 col-md-6" style="display: none">
         <span class="data_work" style="display: none">
             @include('partials.fields', ['type'=>'combo2', 'label'=>'Ocupo algun cargo publico?', 'id'=>'public_work', 'required'=>0,'value'=>$client->public_work, 'array'=>[['id'=>0, 'name'=>'No'],['id'=>1, 'name'=>'Si']]])    
             @include('partials.fields', ['type'=>'text', 'label'=>'Cargo', 'id'=>'position', 'required'=>0,'value'=>$client->position])    
