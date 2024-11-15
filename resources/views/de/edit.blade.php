@@ -448,7 +448,7 @@
                                            for="location">{{ $errors->first('operation_number') }}</label>
                                 </div>
                             </div> --}}
-                            @include('partials.fields', ['type'=>'text', 'label'=>'Número de trámite', 'value'=>$header->operation_number, 'id' => 'operation_number', 'required' => 1 ])
+                            {{-- @include('partials.fields', ['type'=>'text', 'label'=>'Número de trámite', 'value'=>$header->operation_number, 'id' => 'operation_number', 'required' => 1 ]) --}}
                             @endif
                             <div class="form-group">
                                 <label class="control-label col-lg-3 label_required">Número de Póliza: </label>

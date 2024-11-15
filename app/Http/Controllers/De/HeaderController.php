@@ -420,7 +420,7 @@ class HeaderController extends Controller
 
                 $policies = $data['policies']->filter(function ($value) use ($type) {
                     //if($type!='TJ' && $value->ad_city_id == request()->user()->ad_city_id)
-                    if($type!='TJ' && $value->ad_city_id == 7)#santa cruz
+                    if($type!='TJ' && $value->ad_city_id == 1)#santa cruz
                         return $value->type === $type;
                     else{
                         return $value->modality === $type;

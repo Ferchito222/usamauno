@@ -106,7 +106,7 @@ class HeaderRepository extends BaseRepository
                     $this->model->issue_number = ($initial->modality != null && $initial->modality == 'TJ')?$this->getNumberTj('I', $initial->initial,$initial->id):$this->getNumber('I', $initial->initial);
                     $this->model->card_number = $this->data['card_number'];
                 }else
-                    $this->model->operation_number  = $this->data['operation_number'];
+                    $this->model->operation_number  = $this->model->quote_number;
 
                 if ($request->has('place_issuance')) {
                     $this->model->place_issuance = $this->data['place_issuance'];
