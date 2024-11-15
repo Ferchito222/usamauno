@@ -40,8 +40,8 @@ class HeaderEditFormRequest extends Request
         ];
         if(request()->get('credit_product') == 4)
             $rules['card_number'] = 'required';
-        else
-            $rules['operation_number'] = 'required|numeric';
+        // else
+        //     $rules['operation_number'] = 'required|numeric';
             
         if (stripos($this->user()->city->slug, 'nacional') !== false) {
             $rules['place_issuance'] = 'required|exists:ad_cities,id';
