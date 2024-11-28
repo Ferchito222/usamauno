@@ -40,8 +40,9 @@ class AppMigrate extends Command
         $this->clearData('td');
         $this->clearData('tj');
         $this->clearData('vi');
-        $this->userDelete();
         $this->deleteOters();
+        $this->userDelete();
+        
         echo 'fin-consultas';
     }
 
