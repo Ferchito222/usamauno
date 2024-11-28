@@ -361,8 +361,13 @@ class HeaderController extends Controller
 
                 HeaderList:
                 $message = 'La cotización fue registrada con éxito.';
-
+                /**
                 return redirect()->route('de.client.list', [
+                    'rp_id'     => $rp_id,
+                    'header_id' => encode($header_id),
+                ])->with([ 'success_header' => $message ]);/**/
+
+                return redirect()->route('de.detail.create', [
                     'rp_id'     => $rp_id,
                     'header_id' => encode($header_id),
                 ])->with([ 'success_header' => $message ]);

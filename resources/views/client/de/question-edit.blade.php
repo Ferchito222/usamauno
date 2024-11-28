@@ -96,11 +96,11 @@
 
                                 <div class="text-right">
                                     <a href="{{ route('de.client.list', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}"
-                                       class="btn border-slate text-slate-800 btn-flat">Cancelar</a>
+                                       class="btn border-slate text-slate-800 btn-flat rounded5">Cancelar</a>
 
                                     {!! Form::button('Actualizar <i class="icon-floppy-disk position-right"></i>', [
                                         'type'  => 'submit',
-                                        'class' => 'btn btn-primary'
+                                        'class' => 'btn btn-primary rounded5'
                                     ]) !!}
                                 </div>
                                 {!! Form::close() !!}

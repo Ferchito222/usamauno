@@ -154,6 +154,7 @@ var detailEdit = function ($rootScope, $scope, $http) {
           $scope.formData.last_name        = '';
           $scope.formData.mother_last_name = '';
           $scope.formData.complement       = '';
+          $scope.formData.phone_number_mobile = '';
 
           $scope.popup(response.data.payload);
         }
@@ -186,6 +187,7 @@ var detailEdit = function ($rootScope, $scope, $http) {
           $scope.formData.last_name        = data.beneficiary[0].last_name;
           $scope.formData.mother_last_name = data.beneficiary[0].mother_last_name;
           $scope.formData.relationship     = data.beneficiary[0].relationship;
+          $scope.formData.phone_number_mobile = data.beneficiary[0].phone_number_mobile;
           $scope.formData.dni              = dni[0];
           $scope.formData.complement       = dni[1];
           $scope.formData.extension        = data.beneficiary[0].extension;

@@ -57,7 +57,7 @@
                     <div class="col-xs-12 col-md-12">
                         @if($retailerProduct->companyProduct->product->code == 'de' && ($retailerProduct->type == 'MP' || $retailerProduct->type == 'RP'))
                             <div class="col-md-4">
-                                <div class="panel panel-body border-top-primary text-center">
+                                <div class="panel panel-body text-center rounded-top10 rounded-bottom10">
                                     <div class="form-group">
                                         {!! Html::image($retailerProduct->companyProduct->company->image, null, ['style' => 'width: 250px;']) !!}
                                     </div>
@@ -80,7 +80,7 @@
                                         
                                     <hr>
                                     <a href="{{ route('de.edit', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}"
-                                       class="btn btn-primary"><i class="icon-arrow-right14 position-left"></i>
+                                       class="btn btn-primary rounded5"><i class="icon-arrow-right14 position-left"></i>
                                         Emitir
                                     </a>
                                 </div>

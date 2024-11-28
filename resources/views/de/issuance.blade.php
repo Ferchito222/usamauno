@@ -63,10 +63,10 @@
 
                 <div class="panel-body" ng-controller="HeaderDeController" ng-init="uploadFile();">
                     <div class="col-md-4 col-md-offset-2">
-                        <div class="modal-header bg-primary">
+                        <div class="modal-header bg-primary rounded-top10">
                             <h6 class="modal-title">Certificado {{ $header->prefix }} - {{ $header->issue_number }}{{$header->version_number}}</h6>
                         </div>
-                        <div class="panel panel-body border-top-primary text-center">
+                        <div class="panel panel-body border-top-primary text-center rounded-bottom10">
                             <p class="text-muted content-group-sm">Certificados</p>
                             <div class="col-md-12">
                                 
@@ -89,10 +89,10 @@
                     </div>
 
                     <div class="col-md-4" id="box-attach" style=" {{ $header->read ? '' : 'display: none;' }}">
-                        <div class="modal-header bg-success">
+                        <div class="modal-header bg-success rounded-top10">
                             <h6 class="modal-title text-center">CARGAR CERTIFICADO ADJUNTO</h6>
                         </div>
-                        <div class="panel panel-body border-top-primary text-center">
+                        <div class="panel panel-body border-top-primary text-center rounded-bottom10">
                             <div class="col-md-12">
                                 @if(! is_null($header->file))
                                     <a href="{{ route('de.attach.file', ['file' => $header->file]) }}"

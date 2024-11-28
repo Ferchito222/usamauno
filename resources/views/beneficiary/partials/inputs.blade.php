@@ -96,3 +96,16 @@
                ng-show="errors.extension">@{{ errors.extension[0] }}</label>
     </div>
 </div>
+<div class="form-group">
+    <label class="control-label col-lg-3  label_required">Teléfono Celular: </label>
+    <div class="col-lg-9">
+        {!! Form::text('phone_number_mobile', old('phone_number_mobile'), [
+            'class'        => 'form-control',
+            'placeholder'  => 'Teléfono Celular',
+            'autocomplete' => 'off',
+            'ng-model'     => 'formData.phone_number_mobile'
+        ]) !!}
+        <label id="location-error" class="validation-error-label" for="location"
+               ng-show="errors.phone_number_mobile">@{{ errors.phone_number_mobile[0] }}</label>
+    </div>
+</div>

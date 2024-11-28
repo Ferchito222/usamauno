@@ -30,6 +30,7 @@ class BeneficiaryDeFormRequest extends Request
         $rules = [
             'type'         => 'required|in:' . $type,
             'first_name'   => 'required|alpha_space',
+            'phone_number_mobile' => 'required|numeric|digits_between:7,8',
             'dni'          => 'alpha_dash',
             'complement'   => 'alpha_num',
             'extension'    => 'exists:ad_cities,abbreviation',
