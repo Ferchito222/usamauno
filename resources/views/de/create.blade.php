@@ -228,7 +228,7 @@
                         <div class="text-right">
                             {!! Form::button((session('success_cl') || ! is_null(old('op_line')) ? 'Registrar Número de Operación' : 'Cotiza tu mejor seguro') . ' <i class="icon-arrow-right14 position-right"></i>', [
                                 'type'  => 'submit',
-                                'class' => 'btn btn-primary',
+                                'class' => 'btn btn-primary rounded5',
                             ]) !!}
                         </div>
                         {!! Form::close() !!}

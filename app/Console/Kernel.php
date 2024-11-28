@@ -4,22 +4,7 @@ namespace Sibas\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
-use Sibas\Console\Commands\Inspire;
-use Sibas\Console\Commands\ReportAttachments;
-use Sibas\Console\Commands\ReportCoDebtor;
-use Sibas\Console\Commands\SendTjCompany;
-use Sibas\Console\Commands\UpdateTjCollections;
-use Sibas\Console\Commands\SendTjCollectionsToFortaleza;
-use Sibas\Console\Commands\UpdateWsClients;
-use Sibas\Console\Commands\UpdateDataTable;
-use Sibas\Console\Commands\UpdateAgencies;
-use Sibas\Console\Commands\SetNewCollections;
-use Sibas\Console\Commands\NewVersionCert;
-use Sibas\Console\Commands\SendDeIssued;
-use Sibas\Console\Commands\SetNewRateAuTd;
-use Sibas\Console\Commands\StoreTjCollectionByXls;
-use Sibas\Console\Commands\TjMigrate;
-use Sibas\Console\Commands\AuMigrate;
+
 use Sibas\Console\Commands\AppMigrate;
 
 class Kernel extends ConsoleKernel
@@ -30,22 +15,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Inspire::class,
-        ReportAttachments::class,
-        ReportCoDebtor::class,
-        SendTjCompany::class,
-        UpdateTjCollections::class,
-        SendTjCollectionsToFortaleza::class,
-        UpdateWsClients::class,
-        UpdateDataTable::class,
-        UpdateAgencies::class,
-        SetNewCollections::class,
-        NewVersionCert::class,
-        SendDeIssued::class,
-        SetNewRateAuTd::class,
-        StoreTjCollectionByXls::class,
-        TjMigrate::class,
-        AuMigrate::class,
         AppMigrate::class,
     ];
 

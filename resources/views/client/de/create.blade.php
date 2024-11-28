@@ -82,11 +82,11 @@
 
                         <div class="text-right">
                             <a href="{{ route('de.client.list', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}"
-                               class="btn border-slate text-slate-800 btn-flat">Cancelar</a>
+                               class="btn border-slate text-slate-800 btn-flat rounded5">Cancelar</a>
 
                             {!! Form::button('Registrar Cliente <i class="icon-arrow-right14 position-right"></i>', [
                                 'type' => 'submit',
-                                'class' => 'btn btn-primary'])
+                                'class' => 'btn btn-primary rounded5'])
                             !!}
                         </div>
                     </div>

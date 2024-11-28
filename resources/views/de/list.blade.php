@@ -132,7 +132,7 @@
                 @endif
 
                 @if(! is_null($header))
-                    @if ($user->profile->first()->slug !== 'GUP' && $header->details->count() < $coverage_detail)
+                    {{-- @if ($user->profile->first()->slug !== 'GUP' && $header->details->count() < $coverage_detail)
                         <div class="col-xs-12">
                             <div class="col-md-8 col-md-offset-3">
                                 {!! Form::open(['route' => ['client.search', 'rp_id' => $rp_id, 'header_id' => $header_id],
@@ -183,12 +183,12 @@
                                 </div>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                     <div class="col-xs-12">
-                        <br>
+                        <br>                        
                         <div class="text-right">
                             @if ($header->details->count() < $coverage_detail)
-                                @if($user->profile->first()->slug === 'GUP')
+                                @if($user->profile->first()->slug !== 'GUP')
                                     <a class="btn btn-primary"
                                        href="{{ route('de.detail.create', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}"
                                        title="Nuevo Cliente">
@@ -205,7 +205,7 @@
                                         Enviar <i class="icon-arrow-right14 position-right"></i>
                                     </a>
                                 @else
-                                    <a class="btn btn-primary"
+                                    <a class="btn btn-primary rounded5"
                                        href="{{ route('de.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
                                         Continuar <i class="icon-arrow-right14 position-right"></i>
                                     </a>

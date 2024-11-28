@@ -37,10 +37,10 @@
                     });
                 </script>
 
-                <button type="button" class="btn border-slate text-slate-800 btn-flat" data-dismiss="modal">Cancelar
+                <button type="button" class="btn border-slate text-slate-800 btn-flat rounded5" data-dismiss="modal">Cancelar
                 </button>
 
-                {!! Form::button('Guardar <i class="icon-floppy-disk position-right"></i>', ['type' => 'submit', 'class' => 'btn btn-primary']) !!}
+                {!! Form::button('Guardar <i class="icon-floppy-disk position-right"></i>', ['type' => 'submit', 'class' => 'btn btn-primary rounded5']) !!}
             </div>
 
             {!! Form::close() !!}

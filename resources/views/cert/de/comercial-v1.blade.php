@@ -297,6 +297,7 @@
                                     <td style="width: 4%;"></td>
                                     <td style="width: 48%;border-bottom: 1px dotted #000000; text-align: center;">
                                         &nbsp;
+                                        {{ number_format(mountByCurrency('USD', $detail->cumulus, $header->retailerProduct->retailer->exchangeRate), 2) }}
                                     </td>
                                 </tr>
                                 <tr>

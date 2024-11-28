@@ -20,6 +20,7 @@ class Beneficiary extends Model
         'dni',
         'extension',
         'relationship',
+        'phone_number_mobile',
     ];
 
     protected $hidden = [

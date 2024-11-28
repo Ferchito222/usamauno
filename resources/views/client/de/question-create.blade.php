@@ -108,7 +108,7 @@
                                     <div class="text-right">
                                         {!! Form::button('Guardar <i class="icon-floppy-disk position-right"></i>', [
                                             'type'  => 'submit',
-                                            'class' => 'btn btn-primary'
+                                            'class' => 'btn btn-primary rounded5'
                                         ]) !!}
                                     </div>
                                     {!! Form::close() !!}

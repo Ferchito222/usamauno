@@ -77,6 +77,7 @@ class BeneficiaryRepository extends BaseRepository
             'coverage'         => $this->data['type'],
             'first_name'       => mb_strtoupper($this->data['first_name']),
             'last_name'        => mb_strtoupper($this->data['last_name']),
+            'phone_number_mobile' => $this->data['phone_number_mobile'],
             'mother_last_name' => mb_strtoupper($this->data['mother_last_name']),
             'dni'              => $dni . $complement,
             'extension'        => $extension,

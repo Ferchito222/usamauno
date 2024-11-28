@@ -5,8 +5,7 @@ namespace Sibas\Console\Commands;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
-use Maatwebsite\Excel\Facades\Excel;
-use Sibas\Repositories\De\HeaderRepository;
+use Illuminate\Support\Facades\Schema;
 
 class AppMigrate extends Command
 {
@@ -24,29 +23,7 @@ class AppMigrate extends Command
      */
     protected $description = 'app migrate';
     
-    /**
-     *@var CollectionRepository
-     */
-    protected $collectionRepository;
-    
-    /**
-     *@var HeaderRepository
-     */
-    protected $headerRepository;
-    
     public $array;
-
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct(HeaderRepository $headerRepository)
-    {
-        parent::__construct();
-        $this->headerRepository = $headerRepository;
-        $this->array = [];
-    }
 
     /**
      * Execute the console command.
@@ -55,76 +32,100 @@ class AppMigrate extends Command
      */
     public function handle()
     {   
-        $this->migrate_certificate();
+        $this->updateExchange(6.96);
+        $this->clearData('au');
+        $this->clearData('de');
+        $this->clearData('ema');
+        $this->clearData('rma');
+        $this->clearData('td');
+        $this->clearData('tj');
+        $this->clearData('vi');
+        $this->userDelete();
+        $this->deleteOters();
+        echo 'fin-consultas';
     }
 
-    public function migrate_certificate()
-    {   ini_set('memory_limit', -1);
-        ini_set('max_execution_time', -1);
-        $this->createCert();
-        $certificate = DB::table('ad_certificates')->where('template', 'comercial-old-v10')->first();
-        
-        if(file_exists(storage_path('exports/policies.xls'))){
-            Excel::load(storage_path('exports/policies.xls'), function($reader) {
-                $results = $reader->get();
-                $this->array = $results->toArray(); 
-            });
-    
-            $data = $this->array[0];
-            $policies = [];
-            foreach ($data as $key => $value) {
-                $data[$key]['cert_id'] = '';
-                echo '------->'.$key;
-                if($this->headerRepository->getHeader($value)){
-                    $header = $this->headerRepository->getModel();
+    public function userDelete()
+    {   
+        $restrict = [
+            'admin',
+            'edwinadm',
+            'compania',
+            'vendedor',
+            'usama',
+            'xmendoza',
+            'cvelasco',
+            'rcallizaya',
+            'jvargas',
+            'Jzabala',
+            'wbaina',
+            'wgamboa',
+            'amiranda',
+            'cmercado',
+        ];
 
-                    $message = '';
-                    if($header->ad_certificate_id==48){
-                        if($this->headerRepository->updateCert($header->id, $certificate->id))
-                            $message = 'actualizado correctamente';
-                    }elseif($header->ad_certificate_id == $certificate->id)
-                        $message = 'actualizado correctamente';
-
-                    $data[$key]['cert_id'] = ($header->ad_certificate_id == $certificate->id)?48:$header->ad_certificate_id; 
-                    $data[$key]['observacion'] = $message; 
-                }
-            }
-
-            
-            $title          = 'Policy'.date("Y-m-d");
-            $fileName       = 'migracion';
-            $emailsTo       = ['EdwinM@tubroker.com'=>'Edwin Manuel'];
-            $emailsCc       = [];
-
-            $file1 = $this->headerRepository->createXlsByArray($fileName, [$fileName => $data]);
-
-            if($file1){
-                if($this->headerRepository->sendEmail($title, false, [$file1], false, $emailsTo, $emailsCc)){
-                    unlink($file1['full']);
-                    echo 'Correo enviado';
-                    return true;
-                }else
-                    echo 'Correo no enviado';
-            }
-            
-        }else{
-            echo 'no existe archivo';
+        $users = DB::table('ad_users')->select('id')->whereIn('username', $restrict)->get();
+        $ids = [];
+        foreach ($users as $key => $value) {
+            $ids[] = $value->id;
         }
-        
+
+        $retailer_user = DB::table('ad_retailer_users')->select('id')->whereNotIn('ad_user_id', $ids)->get();
+        $r_ids = [];
+        foreach ($retailer_user as $key => $value) {
+            $r_ids[] = $value->id;
+        }
+        DB::table('ad_retailer_user_products')->whereIn('ad_retailer_user_id', $r_ids)->delete();
+
+        DB::table('ad_retailer_users')->whereNotIn('ad_user_id', $ids)->delete();
+        DB::table('ad_user_permissions')->whereNotIn('ad_user_id', $ids)->delete();
+        DB::table('ad_user_profiles')->whereNotIn('ad_user_id', $ids)->delete();
+
+        DB::table('ad_users')->whereNotIn('id', $ids)->delete();
     }
 
-    public function createCert()
-    {
-        if(!DB::table('ad_certificates')->where('template', 'comercial-old-v10')->count()){
-            $data = [
-                'ad_retailer_product_id' => 1474321374,
-                'version' => 1,
-                'template' => 'comercial-old-v10',
-                'active' => false,
-                'created_at' => date('Y-m-d h:m:s'),
-            ];
-            DB::table('ad_certificates')->insert($data);
+    public function updateExchange($amount)
+    {   
+        DB::table('ad_exchange_rates')->where('id',1)->update(['bs_value'=>$amount]);
+    }
+
+    public function deleteOters()
+    {   
+        DB::table('ad_emails')->delete();
+        DB::table('op_mc_answers')->delete();
+        DB::table('op_clients')->delete();
+    }
+
+    public function clearData($code)
+    {   
+        if($code == 'au'){
+            DB::table('op_au_rates')->delete();
+            DB::table('op_au_minimum_premiums')->delete();
+            DB::table('ad_au_increments')->delete();
         }
+
+        DB::table('op_'.$code.'_cancellations')->delete();
+
+        if (Schema::hasTable('op_'.$code.'_facultatives'))
+            DB::table('op_'.$code.'_facultatives')->delete();
+
+        if (Schema::hasTable('op_'.$code.'_collections'))
+            DB::table('op_'.$code.'_collections')->delete();
+
+        if (Schema::hasTable('op_'.$code.'_beneficiaries'))
+            DB::table('op_'.$code.'_beneficiaries')->delete();
+
+        if (Schema::hasTable('op_'.$code.'_detail_coverages'))
+            DB::table('op_'.$code.'_detail_coverages')->delete();
+
+        if (Schema::hasTable('op_'.$code.'_responses'))
+            DB::table('op_'.$code.'_responses')->delete();
+
+        if (Schema::hasTable('op_'.$code.'_rejected_customers'))
+            DB::table('op_'.$code.'_rejected_customers')->delete();
+
+        DB::table('op_'.$code.'_details')->delete();
+        DB::table('op_'.$code.'_headers')->delete();
     }
     
 }
