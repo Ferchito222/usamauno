@@ -44,10 +44,12 @@ class RetailerProductRepository extends BaseRepository
 
             foreach ($retailer->productQuestions as $productQuestion) {
                 $pq = null;
-
-                if (in_array($creditProduct->slug, [ 'PMO', 'PLT' ]) && in_array($productQuestion->type, [ 'PMO', 'PLT' ])) {
+                
+                if (in_array(is_null($creditProduct) ? [] : $creditProduct->slug, [ 'PMO', 'PLT' ]) && in_array($productQuestion->type, [ 'PMO', 'PLT' ])) {
                     $pq = $productQuestion;
-                } elseif (! in_array($creditProduct->slug, [ 'PMO', 'PLT' ]) && is_null($productQuestion->type)) {
+                } elseif (!in_array(is_null($creditProduct) ? [] : $creditProduct->slug, [ 'PMO', 'PLT' ]) && is_null($productQuestion->type)) {
+                    $pq = $productQuestion;
+                } else {
                     $pq = $productQuestion;
                 }
 

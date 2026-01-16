@@ -21,14 +21,18 @@
                 </div>
             @endif
 
-            {!! Form::open(['route' => ['de.beneficiary.store', 'rp_id' => $rp_id, 'header_id' => $header_id, 'detail_id' => encode($detail->id)], 
+            {!! Form::open(['route' => [$retailerProduct->companyProduct->product->code.'.beneficiary.store', 'rp_id' => $rp_id, 'header_id' => $header_id, 'detail_id' => encode($detail->id)], 
                 'method'        => 'post', 
                 'class'         => 'form-horizontal', 
                 'ng-controller' => 'BeneficiaryController',
                 'ng-submit'     => 'store($event)'
             ]) !!}
 
-            @include('beneficiary.partials.inputs')
+            @if($retailerProduct->companyProduct->product->code == 'de')
+                @include('beneficiary.partials.inputs')
+            @else
+                @include('beneficiary.partials.inputs_vi')
+            @endif
 
             <div class="text-right">
                 <script ng-if="success.beneficiary">

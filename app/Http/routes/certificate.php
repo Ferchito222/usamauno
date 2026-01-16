@@ -17,4 +17,9 @@ Route::group([ 'prefix' => '{code}/{rp_id}' ], function () {
         'as'   => 'template.pdf.show',
         'uses' => 'CertificateController@templatePdfs'
     ]);
+
+    Route::post('{header_id}/type/{type}', [
+        'as'   => 'certificate.attached',
+        'uses' => 'CertificateController@attached'
+    ]);
 });

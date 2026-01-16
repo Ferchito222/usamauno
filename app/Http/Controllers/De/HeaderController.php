@@ -199,13 +199,16 @@ class HeaderController extends Controller
                 $user            = auth()->user();
                 $retailerProduct = $this->retailerProductRepository->getModel();
                 $coverage_detail = 0;
-
-                foreach ($retailerProduct->coverages as $coverage) {
-                    if ($coverage->id === $header->ad_coverage_id) {
-                        $coverage_detail = $coverage->pivot->detail;
+                
+                if (isset($retailerProduct->coverages)) {
+                    foreach ($retailerProduct->coverages as $coverage) {
+                        if ($coverage->id === $header->ad_coverage_id) {
+                            $coverage_detail = $coverage->pivot->detail;
+                        }
                     }
                 }
             }
+            // dd("list", decode($rp_id), decode($header_id), $this->retailerProductRepository->getRetailerProductById(decode($rp_id)), $this->repository->getHeaderById(decode($header_id)), $header, $user, $retailerProduct, $coverage_detail);
 
             return view('de.list',
                 compact('rp_id', 'header_id', 'header', 'coverage_detail', 'user', 'retailerProduct'));
@@ -649,7 +652,7 @@ class HeaderController extends Controller
                 $q->where('code', 'de');
             });
 
-        if (in_array($header->creditProduct->slug, [ 'PMO', 'PLT' ])) {
+        if (in_array((isset($header->creditProduct->slug) ? $header->creditProduct->slug : ''), [ 'PMO', 'PLT' ])) {
             $rp->whereHas('creditProducts', function ($q) use ($header) {
                 $q->where('slug', $header->creditProduct->slug);
             })->whereHas('rates.creditProduct', function ($q) use ($header) {
