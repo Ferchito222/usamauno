@@ -7,7 +7,7 @@
                     <span class="col-md-11">
                         <span class="form-wizard-count">4</span>
                         Datos del Beneficiario de Sepelio
-                        <small class="display-block">Cliente {{ $detail->client->full_name }}</small>
+                        <small class="display-block">Cliente {{ $detail->client->full_name }} </small>
                     </span>
                 </h6>
             </div>
@@ -19,8 +19,7 @@
                     <span class="text-semibold">{{ session('error_beneficiary') }}</span>.
                 </div>
             @endif
-
-            {!! Form::open(['route' => ['de.beneficiary.update', 'rp_id' => $rp_id, 'header_id' => $header_id, 'detail_id' => encode($detail->id)], 
+            {!! Form::open(['route' => [$retailerProduct->companyProduct->product->code.'.beneficiary.update', 'rp_id' => $rp_id, 'header_id' => $header_id, 'detail_id' => encode($detail->id), 'beneficiary_id' => $beneficiary_id], 
                 'method'        => 'put',
                 'class'         => 'form-horizontal',
                 'ng-controller' => 'BeneficiaryController',
@@ -29,7 +28,12 @@
 
             {!! Form::hidden('beneficiary_id', null, ['ng-model' => 'formData.beneficiary_id']) !!}
 
-            @include('beneficiary.partials.inputs')
+            {{-- @include('beneficiary.partials.inputs') --}}
+            @if($retailerProduct->companyProduct->product->code == 'de')
+                @include('beneficiary.partials.inputs')
+            @else
+                @include('beneficiary.partials.inputs_vi')
+            @endif
 
             <div class="text-right">
                 <script ng-if="success.beneficiary">

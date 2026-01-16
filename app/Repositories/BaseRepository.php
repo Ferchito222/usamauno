@@ -1184,4 +1184,190 @@ abstract class BaseRepository
         else
             return ['error' => 'error executed'];
     }
+
+    /**
+     * DESDE AQUI SE ACTUALIZO LAS FUNCIONES
+     * @param Model|RetailerProduct $retailerProduct
+     * @param string                $credit_product
+     *
+     * @return bool
+     */
+    public function getNumberPrefix($prefix,$field,$city='',$default = 1)
+    {
+        $max = $this->model->where('prefix', '=', $prefix)->max($this->fieldName[$field]);
+
+        //dd($max);
+        return is_null($max) ? $default : $max + 1;
+    }
+
+    public function getPolicyNumber($issue_number, $code, $city = '', $default = 1)
+    {
+        switch ($code){
+            case 'VI':
+                $policy = 'V180-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VM':
+                //$policy = 'VMAX-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                $policy = 0 + $issue_number;
+                break;
+            case 'VPC':
+                $policy = 'VMPC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VP':
+                $policy = 'VPRM-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VS':
+                $policy = 'VPLU-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VC':
+                $policy = 'COBE-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'SC':
+                $policy = '6641'.str_pad($issue_number, 6, "0", STR_PAD_LEFT);
+                break;
+            case 'SCP':
+                $policy = 'VSPL-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'PC':
+                $policy = 'CBE2-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VITC':
+                $policy = '18TC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VMTC':
+                $policy = 'MXTC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VPTC':
+                $policy = 'PRTC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VSTC':
+                $policy = 'PLTC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'VCTC':
+                $policy = 'COTC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'PCTC':
+                $policy = 'CBTC-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'SCTC':
+                $policy = 6641000000 + $issue_number;
+                break;
+            case 'SP':
+                $policy = 'SEPL-'.str_pad($issue_number, 6, "0", STR_PAD_LEFT).'-00';
+                break;
+            case 'AP':
+                $policy = 0 + $issue_number;
+                break;
+            case 'SEP':
+                $policy = 554168087 + $issue_number;
+                break;
+            case 'IN':
+                $policy = 'IAE-' . $city . '-' . str_pad($issue_number, 5, "0", STR_PAD_LEFT) . '-00-' . date('Y');
+                break;
+            case 'PR':
+                $policy = 7765 + $issue_number;
+                break;
+            case 'VD':
+                $policy = 0 + $issue_number;
+                break;
+        }
+
+        return is_null($policy) ? $default : $policy;
+    }
+
+    /**
+     * @param string                 $date
+     * @param Model|ProductParameter $parameter
+     *
+     * @return bool
+     */
+    public function checkQuantityProducts($details, $code, $dni, $ext, $plan = '')
+    {
+        switch ($code){
+            case 'vi':
+                $c = 11;
+                break;
+            case 'vm':
+                $c = 19;
+                break;
+            case 'vpc':
+                $c = 19;
+                break;
+            case 'vp':
+                $c = 2;
+                break;
+            case 'vs':
+                $c = 11;
+                break;
+            case 'vc':
+                $c = 1;
+                break;
+            case 'pc':
+                $c = 1;
+                break;
+            case 'sc':
+                $c = 10;
+                break;
+            case 'scp':
+                $c = 10;
+                break;
+            case 'ap':
+                if ($plan == 'Plan A')
+                    $c = 5;
+                elseif ($plan == 'Plan B')
+                    $c = 3;
+                elseif ($plan == 'Plan C')
+                    $c = 2;
+                elseif ($plan == 'Plan D')
+                    $c = 1;
+                elseif ($plan == 'Plan F')
+                    $c = 1;
+
+                break;
+            case 'sep':
+                $c = 14;
+                break;
+            case 'sp':
+                $c = 4;
+                break;
+            case 'in':
+                $c = 20;
+                break;
+            case 'pr':
+                $c = 20;
+                break;
+            case 'vd':
+                if ($plan == 'Plan A')
+                    $c = 5;
+                elseif ($plan == 'Plan B')
+                    $c = 3;
+                elseif ($plan == 'Plan C')
+                    $c = 2;
+                elseif ($plan == 'Plan D')
+                    $c = 1;
+                elseif ($plan == 'Plan V')
+                    $c = 1;
+
+                break;
+        }
+
+        return $this->checkProduct($details, $dni, $ext, $c);
+    }
+
+    public function checkProduct($details, $dni, $ext, $c)
+    {
+        $i = 0;
+        foreach ($details as $key => $value){
+            $titular = $value->header->details->first();
+            if($titular->issuedheader == true && $titular->header->canceled == false &&
+                $titular->client->dni == $dni && $titular->client->extension == $ext &&
+                date('Y-m-d') <= date("Y-m-d",strtotime($value->header->date_issue."+ ".$value->header->term." month")))
+                $i++;
+        }
+
+        if ($i < $c)
+            return true;
+        else
+            return false;
+    }
 }

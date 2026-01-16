@@ -56,7 +56,7 @@
                             @foreach(auth()->user()->retailerUser->retailer->retailerProducts as $retailerProduct)
                                 @var $flag_product = false;
 
-                                @if($retailerProduct->type == 'MP' && $retailerProduct->active)
+                                @if(($retailerProduct->type == 'MP' || $retailerProduct->type == 'SP') && $retailerProduct->active)
                                     @if(auth()->user()->retailerUser->products()->where('ad_products.id', $retailerProduct->companyProduct->product->id)->count() === 1)
                                         @var $flag_product = true;
                                     @endif
@@ -198,7 +198,7 @@
                             @foreach(auth()->user()->retailerUser->retailer->retailerProducts as $retailerProduct)
                                 @var $flag_product = false;
 
-                                @if($retailerProduct->type == 'MP' && $retailerProduct->active)
+                                @if(($retailerProduct->type == 'MP' || $retailerProduct->type == 'SP') && $retailerProduct->active)
                                     @if($user_profile === 'COP'
                                         && in_array($retailerProduct->companyProduct->ad_company_id, auth()->user()->retailerUser->companies))
                                         @var $flag_product = true;
@@ -213,12 +213,12 @@
                                             @var $route_report = '';
                                             @var $code         = $retailerProduct->companyProduct->product->code;
 
-                                            @if($code == 'de' || $code == 'elp' || $code == 'eb' || $code == 'ema' || $code == 'rma' || $code == 'td' || $code == 'au' || $code == 'tj')
+                                            @if($code == 'de' || $code == 'elp' || $code == 'eb' || $code == 'ema' || $code == 'rma' || $code == 'td' || $code == 'au' || $code == 'tj' || $code == 'vd')
                                                 @var $route_report = 'master';
                                             @endif
 
                                             @var $route = route('report.' . $route_report, [ 'id_comp' => encode($retailerProduct->id) ])
-                                            @if($code == 'de' || $code == 'elp' || $code == 'eb' || $code == 'ema' || $code == 'rma' || $code == 'td' || $code == 'au' || $code == 'tj')
+                                            @if($code == 'de' || $code == 'elp' || $code == 'eb' || $code == 'ema' || $code == 'rma' || $code == 'td' || $code == 'au' || $code == 'tj' || $code == 'vd')
                                                 @var $route = route('report.' . $route_report, [ 'code' => $code, 'rp_id' => encode($retailerProduct->id), 'type' => 'GEN' ])
                                             @endif
                                             <a href="{{ $route }}">

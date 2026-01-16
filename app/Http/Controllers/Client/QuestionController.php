@@ -14,6 +14,7 @@ use Sibas\Repositories\Client\QuestionRepository;
 use Sibas\Repositories\De\DetailRepository;
 use Sibas\Repositories\Retailer\RetailerProductRepository;
 use Sibas\Repositories\StorageRepository;
+use Sibas\Repositories\Vd\DetailRepository as DetailRepositoryVd;
 
 class QuestionController extends Controller
 {
@@ -37,17 +38,24 @@ class QuestionController extends Controller
      */
     protected $storageRepository;
 
+    /**
+     * @var DetailRepositoryVd
+     */
+    protected $detailRepositoryVd;
+
 
     public function __construct(
         QuestionRepository $repository,
         DetailRepository $detailRepository,
         RetailerProductRepository $retailerProductRepository,
-        StorageRepository $storageRepository
+        StorageRepository $storageRepository,
+        DetailRepositoryVd $detailRepositoryVd
     ) {
         $this->repository                = $repository;
         $this->detailRepository          = $detailRepository;
         $this->retailerProductRepository = $retailerProductRepository;
         $this->storageRepository = $storageRepository;
+        $this->detailRepositoryVd = $detailRepositoryVd;
     }
 
 
@@ -62,8 +70,14 @@ class QuestionController extends Controller
      */
     public function create($rp_id, $header_id, $detail_id)
     {
-        if ($this->detailRepository->getDetailById(decode($detail_id))) {
-            $detail = $this->detailRepository->getModel();
+        if ($this->detailRepository->getDetailById(decode($detail_id)) || $this->detailRepositoryVd->getDetailById(decode($detail_id))) {
+            
+            if(count($this->detailRepository->getModel()) > 0){
+                $detail = $this->detailRepository->getModel();                
+            }elseif(count($this->detailRepositoryVd->getModel()) > 0){
+                $detail = $this->detailRepositoryVd->getModel();                
+            }
+            // $detail = $this->detailRepository->getModel();
 
             QuestionCreate:
             $data = [
@@ -117,71 +131,88 @@ class QuestionController extends Controller
      */
     public function storeDe(QuestionFormRequest $request, $rp_id, $header_id, $detail_id)
     {
-        if ($this->detailRepository->getDetailById(decode($detail_id))) {
-            $request['detail'] = $this->detailRepository->getModel();
-
-            if ($this->repository->storeQuestionDe($request)) {
-                QuestionStore:
-                return redirect()->route('de.client.list', [
-                    'rp_id'     => $rp_id,
-                    'header_id' => $header_id,
-                ])->with([
-                    'success_question' => 'La información y el cuestionario de salud del Cliente fueron registrados',
-                ]);
-            }
-        } elseif (request()->session()->has('guest')) {
-            /*
-             * Local Storage
-             */
-            $this->storageRepository->setId(decode($header_id));
-
-            if ($this->storageRepository->getDataStorage('guest')) {
-                $data          = $this->storageRepository->getData();
-                $flag_response = false;
-
-                foreach ($data['header']['details'] as &$d) {
-                    if ($d['id'] == decode($detail_id)) {
-                        $detail         = new Detail($d);
-                        $detail->client = new Client($d['client']);
-                        $detail->header = new Header($data['header']);
-
-                        $qs_data = $request->all();
-
-                        if ((int) $qs_data['qs_number'] === count($qs_data['qs'])) {
-                            foreach ($qs_data['qs'] as &$qs) {
-                                $qs['expected']      = (boolean) $qs['expected'];
-                                $qs['response']      = (boolean) $qs['response'];
-                                $qs['response_text'] = (boolean) $qs['response_text'];
+        if($this->retailerProductRepository->getRetailerProductById(decode($rp_id))){
+            $retailerProduct = $this->retailerProductRepository->getModel();
+            // dd("storeDe", $retailerProduct, $retailerProduct->companyProduct->product->code);
+            QuestionStore:
+            if ($this->detailRepository->getDetailById(decode($detail_id))) {
+                $request['detail'] = $this->detailRepository->getModel();
+                
+                if ($this->repository->storeQuestionDe($request, 'de')) {
+                    // QuestionStore:
+                    return redirect()->route('de.client.list', [
+                        'rp_id'     => $rp_id,
+                        'header_id' => $header_id,
+                    ])->with([
+                        'success_question' => 'La información y el cuestionario de salud del Cliente fueron registrados',
+                    ]);
+                }
+            } elseif ($this->detailRepositoryVd->getDetailById(decode($detail_id))) {
+                $request['detail'] = $this->detailRepositoryVd->getModel();
+                
+                if ($this->repository->storeQuestionDe($request, $retailerProduct->companyProduct->product->code)) {
+                    // QuestionStore:
+                    return redirect()->route($retailerProduct->companyProduct->product->code.'.client.list', [
+                        'rp_id'     => $rp_id,
+                        'header_id' => $header_id,
+                    ])->with([
+                        'success_question' => 'La información y el cuestionario de salud del Cliente fueron registrados',
+                    ]);
+                }
+            } elseif (request()->session()->has('guest')) {
+                /*
+                * Local Storage
+                */
+                $this->storageRepository->setId(decode($header_id));
+                
+                if ($this->storageRepository->getDataStorage('guest')) {
+                    $data          = $this->storageRepository->getData();
+                    $flag_response = false;
+                    
+                    foreach ($data['header']['details'] as &$d) {
+                        if ($d['id'] == decode($detail_id)) {
+                            $detail         = new Detail($d);
+                            $detail->client = new Client($d['client']);
+                            $detail->header = new Header($data['header']);
+                            
+                            $qs_data = $request->all();
+                            
+                            if ((int) $qs_data['qs_number'] === count($qs_data['qs'])) {
+                                foreach ($qs_data['qs'] as &$qs) {
+                                    $qs['expected']      = (boolean) $qs['expected'];
+                                    $qs['response']      = (boolean) $qs['response'];
+                                    $qs['response_text'] = (boolean) $qs['response_text'];
+                                }
+                                
+                                $observation = '';
+                                
+                                if (! in_array($detail->header->creditProduct->slug, [ 'PMO', 'PLT' ]) && ! $request->has('credit_product')) {
+                                    $observation = $qs_data['qs_observation'];
+                                }
+                                
+                                $d['response'] = [
+                                    'id'          => filter_var(date('U'), FILTER_VALIDATE_INT),
+                                    'response'    => json_encode($qs_data['qs']),
+                                    'observation' => $observation,
+                                ];
+                                
+                                $flag_response = true;
+                                
+                                break;
                             }
-
-                            $observation = '';
-
-                            if (! in_array($detail->header->creditProduct->slug, [ 'PMO', 'PLT' ]) && ! $request->has('credit_product')) {
-                                $observation = $qs_data['qs_observation'];
-                            }
-
-                            $d['response'] = [
-                                'id'          => filter_var(date('U'), FILTER_VALIDATE_INT),
-                                'response'    => json_encode($qs_data['qs']),
-                                'observation' => $observation,
-                            ];
-
-                            $flag_response = true;
-
-                            break;
                         }
                     }
+                    
+                    if ($flag_response) {
+                        $this->storageRepository->storeDataStorage($data, 'guest');
+                        
+                        goto QuestionStore;
+                    }
                 }
-
-                if ($flag_response) {
-                    $this->storageRepository->storeDataStorage($data, 'guest');
-
-                    goto QuestionStore;
-                }
+                /*
+                * Local Storage
+                */
             }
-            /*
-             * Local Storage
-             */
         }
 
         return redirect()->back()->with([ 'error_question' => 'El Cuestionario de Salud no pudo ser registrado' ])

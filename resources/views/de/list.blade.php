@@ -198,7 +198,19 @@
                                 @endif
                             @endif
 
-                            @if(($header->coverage->slug === 'IC' && $header->details->count() > 0) || ($header->coverage->slug !== 'IC' && $header->details->count() > 1))
+                            @if(((isset($header->coverage->slug) ? $header->coverage->slug : '') === 'IC' && $header->details->count() > 0) || ((isset($header->coverage->slug) ? $header->coverage->slug : '') !== 'IC' && $header->details->count() > 1))
+                                @if($user->profile->first()->slug === 'GUP')
+                                    <a class="btn btn-primary"
+                                       href="{{ route('de.guest.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
+                                        Enviar <i class="icon-arrow-right14 position-right"></i>
+                                    </a>
+                                @else
+                                    <a class="btn btn-primary rounded5"
+                                       href="{{ route('de.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
+                                        Continuar <i class="icon-arrow-right14 position-right"></i>
+                                    </a>
+                                @endif
+                            @else
                                 @if($user->profile->first()->slug === 'GUP')
                                     <a class="btn btn-primary"
                                        href="{{ route('de.guest.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
@@ -272,7 +284,7 @@
                                                             </li>
                                                             @if($user->profile->first()->slug !== 'GUP')
                                                             
-                                                            @if($header->coverage->slug == 'MC')
+                                                            @if((isset($header->coverage->slug) ? $header->coverage->slug : '') == 'MC')
                                                                 @if($key != 0 )
                                                                     <li>
                                                                         <a href="{{ route('de.detail.destroy', [

@@ -31,6 +31,45 @@ class DataRepository extends BaseRepository
         return $this->getData($termType);
     }
 
+    /** Returns list of Term Types
+     *
+     * @return Collection
+     */
+    public function getCountry()
+    {
+        $countries = config('base.countries');
+
+        return $this->getData($countries);
+    }
+
+    /** Returns list of Term
+     *
+     * @return Collection
+     */
+    public function getTerm()
+    {
+        $term = [];
+        for ($i = 12; $i <= 120; $i=$i+6) {
+            $term[$i] = $i;
+        }
+        
+        return $this->getData($term);
+    }
+
+    /** Returns list of Term
+     *
+     * @return Collection
+     */
+    public function getTermYear()
+    {
+        $term = [];
+        for ($i = 12; $i <= 240; $i=$i+12) {
+            $term[$i] = $i;
+        }
+
+        return $this->getData($term);
+    }
+
     /** Returns list of Payment Types
      *
      * @return Collection
@@ -240,6 +279,48 @@ class DataRepository extends BaseRepository
     {
         $array = config('base.yes_no');
 
+        return $this->getData($array);
+    }
+
+    public function getPaymentMethodVi()
+    {
+        $payment_methods = config('base.payment_methods_vi');
+        
+        return $this->getData($payment_methods);
+    }
+
+    /** Returns list of months
+     *
+     * @return Collection
+     */
+    public function getMonthText()
+    {
+        $month_text = monthTranslated();
+
+        return $this->getData($month_text);
+    }
+
+    /** Returns list Years
+     *
+     * @return Collection
+     */
+    public function getYearsText()
+    {
+        for ($i=2020 ; $i<= 2030 ; $i++){
+            $year_text[$i] = $i;
+        }
+
+        return $this->getData($year_text);
+    }
+
+    /** Returns list of pre printed
+     *
+     * @return Collection
+     */
+    public function getTrueFalse()
+    {
+        $array = config('base.true_false');
+        
         return $this->getData($array);
     }
 }

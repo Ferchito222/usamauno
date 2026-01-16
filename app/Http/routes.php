@@ -171,6 +171,8 @@ Route::get('{rp_id}/facultative/{id}/mc/show', [
 
 require 'routes/elp.settlement.php';
 
+require 'routes/vd.issuance.php';
+
 /*
  * api document print
  */

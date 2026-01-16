@@ -44,7 +44,7 @@ function dateToFormat($birthdate)
     return null;
 }
 
-function monthTranslated($month)
+function monthTranslated($month = 0)
 {
     $months = [
         1  => 'Enero',
@@ -61,7 +61,13 @@ function monthTranslated($month)
         12 => 'Diciembre',
     ];
 
-    return $months[ $month ];
+    // return $months[ $month ];
+
+    if ($month == 0){
+        return $months;
+    }else{
+        return $months[ $month ];
+    }
 }
 
 function date_format_report($date)
@@ -873,6 +879,81 @@ function getToken($rp_id, $header_id, $header)
     return \Firebase\JWT\JWT::encode($payload, env('JWT_SECRET'), 'HS256');
 };
 
+function policy_number ($policy_number, $renovation, $type) {
+
+    $r_num = $renovation==0?'':'-'.$renovation;
+
+    if($type == 'AP' || $type == 'VD' || $type == 'SEP' || $type == 'SC' || $type == 'PR'){
+        $policy_number = $policy_number.$r_num;
+    }elseif($type == 'IN'){
+        $p = explode('-', $policy_number);
+        $year = $p[4] + $renovation;
+
+        $policy_number = $p[0].'-'.$p[1].'-'.$p[2].'-'.str_pad($renovation, 2, "0", STR_PAD_LEFT).'-'.$year;
+    }else{
+        $policy_number = substr($policy_number, 0, -2).$r_num = str_pad($renovation, 2, "0", STR_PAD_LEFT);
+    }
+
+    return $policy_number;
+}
+
+function policy_issue_date ($t, $date_issue, $type, $time) {
+    //if($type == 'AP' || $type == 'VD' || $type == 'SEP' || $type == 'SC' || $type == 'IN') {
+        $date_issue = date('Y-m-d H:m:i', strtotime('-' . $t . ' '.$time, strtotime($date_issue)));
+    //}
+
+    return $date_issue;
+}
+
+function policy_status ($canceled, $date_end, $cancel) {
+    if ($date_end >= date('Y-m-d 00:00:01')){
+        if ($canceled == true)
+            $status = 'Anulado';
+        else
+            $status = 'Vigente';
+    } else {
+        if ($cancel) {
+            if ($date_end >= Carbon::createFromTimestamp(strtotime($cancel->created_at))->format('Y-m-d H:i:s'))
+                $status = 'Anulado';
+            else
+                $status = 'Caducado';
+        }else{
+            $status = 'Caducado';
+        }
+    }
+
+    return $status;
+}
+
+function policy_type ($renovation) {
+    if ($renovation == 0){
+        $type = 'Nuevo';
+    } else {
+        $type = 'Renovado';
+    }
+
+    return $type;
+}
+
+function cancel_info ($date_end, $cancel) {
+
+    $cancel_info['anulado'] = 'No';
+    $cancel_info['anulado_por'] = '';
+    $cancel_info['motivo'] = '';
+    $cancel_info['fecha_anulado'] = '';
+
+    if ($cancel){
+        if ($date_end >= Carbon::createFromTimestamp(strtotime($cancel->created_at))->format('Y-m-d H:i:s')){
+            $cancel_info['anulado'] = 'Si';
+            $cancel_info['anulado_por'] = $cancel->user->full_name;
+            $cancel_info['motivo'] = $cancel->reason;
+            $cancel_info['fecha_anulado'] = date_format_report($cancel->created_at);
+        }
+    }
+
+    return $cancel_info;
+}
+
 function isFacultativeAccidentalDeath($header, $detail)
 {
     if(!in_array($header->creditProduct->slug, ['PMO', 'PLT']) && $header->facultative && ! is_null($detail->facultative)){
@@ -886,4 +967,31 @@ function isFacultativeAccidentalDeath($header, $detail)
 function setting($optional)
 {
     return config('base.setting.'.$optional);
+}
+
+/**
+ * ACTUALIZACON DE FUNCIONES
+ */
+function getProductonVIAR()
+{
+    return [
+        "EsValido" => "true",
+        "Mensaje" => "Cliente registrado correctamente",
+        "FechaRegistro" => "2024-05-09T12:04:23.353733-04:00",
+        "CantidadRegistrosError" => "0",
+        "ErrorPoliza" => "",
+        "ListaPolizas" => ""
+    ];
+}
+
+function getPagoVIAR()
+{
+    return [
+        "EsValido" => "true",
+        "Mensaje" => "Pago registrado correctamente",
+        "FechaRegistro" => "2024-05-09T12:04:25.2578736-04:00",
+        "CantidadRegistrosError" => "0",
+        "ErrorPoliza" => "",
+        "ListaPolizas" => ""
+    ];
 }

@@ -6,6 +6,7 @@ use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Sibas\Entities\De\Response;
+use Sibas\Entities\Vd\Response as ResponseVd;
 use Sibas\Repositories\BaseRepository;
 
 class QuestionRepository extends BaseRepository
@@ -18,7 +19,7 @@ class QuestionRepository extends BaseRepository
      *
      * @return bool
      */
-    public function storeQuestionDe($request)
+    public function storeQuestionDe($request, $product = '')
     {
         $this->data = $request->all();
         $detail     = $this->data['detail'];
@@ -31,16 +32,24 @@ class QuestionRepository extends BaseRepository
             }
 
             $observation = '';
-
-            if (! in_array($detail->header->creditProduct->slug, [ 'PMO', 'PLT' ]) && ! $request->has('credit_product')) {
+            
+            if (! in_array(isset($detail->header->creditProduct->slug) ? $detail->header->creditProduct->slug : [], [ 'PMO', 'PLT' ]) && ! $request->has('credit_product')) {
                 $observation = $this->data['qs_observation'];
             }
 
-            $this->model = new Response([
-                'id'          => date('U'),
-                'response'    => json_encode($this->data['qs']),
-                'observation' => $observation,
-            ]);
+            if ($product == 'de') {
+                $this->model = new Response([
+                    'id'          => date('U'),
+                    'response'    => json_encode($this->data['qs']),
+                    'observation' => $observation,
+                ]);
+            } elseif($product == 'vd') {
+                $this->model = new ResponseVd([
+                    'id'          => date('U'),
+                    'response'    => json_encode($this->data['qs']),
+                    'observation' => $observation,
+                ]);
+            }
 
             try {
                 if ($detail->response()->save($this->model)) {

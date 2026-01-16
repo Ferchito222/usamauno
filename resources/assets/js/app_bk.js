@@ -14,6 +14,7 @@ var DetailDeController     = require('./components/de/DetailController');
 var BeneficiaryController  = require('./components/de/BeneficiaryController');
 var CancellationController = require('./components/de/CancellationController');
 var HeaderViController     = require('./components/vi/HeaderController');
+var HeaderVdController     = require('./components/vd/HeaderController');
 var HeaderAuController     = require('./components/au/HeaderController');
 var DetailAuController     = require('./components/au/DetailController');
 var HeaderTdController     = require('./components/td/HeaderController');
@@ -241,6 +242,8 @@ app.controller('FacultativeController', ['$rootScope', '$scope', '$http', '$comp
 app.controller('CancellationController', ['$rootScope', '$scope', '$http', CancellationController.cancellation]);
 
 app.controller('HeaderViController', ['$scope', '$http', '$compile', HeaderViController.header]);
+
+app.controller('HeaderVdController', ['$scope', '$http', '$compile', HeaderVdController.header]);
 
 app.controller('ClientController', ['$rootScope', '$scope', ClientController.client]);
 

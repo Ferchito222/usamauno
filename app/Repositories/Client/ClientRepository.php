@@ -128,7 +128,9 @@ class ClientRepository extends BaseRepository
         $this->data['weight']        = $this->model->weight;
         $this->data['height']        = $this->model->height;
 
-        $this->setData();
+        if(isset($this->data['birthdate'])){
+            $this->setData();
+        }
 
         return $this->saveModel();
     }

@@ -10,6 +10,7 @@ use Sibas\Entities\De\CreditLine;
 use Sibas\Entities\De\Detail;
 use Sibas\Entities\De\Facultative;
 use Sibas\Entities\De\Header;
+use Sibas\Entities\Vd\Header as HeaderVd;
 use Sibas\Entities\Rate;
 use Sibas\Entities\RetailerProduct;
 use Sibas\Repositories\BaseRepository;
@@ -170,7 +171,7 @@ class HeaderRepository extends BaseRepository
             $rate_final = 0;
             $details    = $header->details()->count();
             
-            if (in_array($header->creditProduct->slug, [ 'PMO', 'PLT' ])
+            if (in_array((isset($header->creditProduct->slug) ? $header->creditProduct->slug : ''), [ 'PMO', 'PLT' ])
                 && ( $retailerProduct->type === 'RP' || $retailerProduct->type === 'MP' )
             ) {
                 $rates = $retailerProduct->rates()->whereHas('creditProduct', function ($q) {
@@ -199,20 +200,24 @@ class HeaderRepository extends BaseRepository
             } elseif ($retailerProduct->type === 'MP') {
                 $rates = $retailerProduct->rates();
 
-                $coverage = $header->coverage;
-                $rates->where('ad_coverage_id', $header->coverage->id)->where('active', true);
-
-                //if ($header->creditProduct->slug === 'PCA') {
-                // if (false) {
-                //     $rates->whereHas('creditProduct', function ($q) use ($header) {
-                //         $q->where('slug', $header->creditProduct->slug);
-                //     });
-                // } else {
-                //     $rates->doesntHave('creditProduct');
-                // }
-
-                $rates = $rates->get();
+                $coverage = isset($header->coverage) ? $header->coverage : '';
                 
+                if(isset($header->coverage->id)){
+                    $rates->where('ad_coverage_id', (isset($header->coverage->id) ? $header->coverage->id : ''))->where('active', true);
+
+                    //if ($header->creditProduct->slug === 'PCA') {
+                    // if (false) {
+                    //     $rates->whereHas('creditProduct', function ($q) use ($header) {
+                    //         $q->where('slug', $header->creditProduct->slug);
+                    //     });
+                    // } else {
+                    //     $rates->doesntHave('creditProduct');
+                    // }
+
+                    $rates = $rates->get();
+                }else{
+                    $rates = [];
+                }
                 /**if ($rates->count() === 1) {
                     $rate       = $rates->first();
                     $rate_final = $rate->rate_final;
@@ -221,16 +226,18 @@ class HeaderRepository extends BaseRepository
                 /*
                 * Formula APS
                 */
-                if ($header->coverage->slug !== 'IC') {
-                    if ($facultative) {
-                        $details = $header->details->where('approved', true)->count();
-                    }
-                    
-                    //$rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
-                    $rate_final = $rates->first()->rate_final;
-                    $details = 1;// a solicitud de Rodrigo Cherveches se quema la tasa para cada codeudor
-                }else
-                    $rate_final = $rates->first()->rate_final;
+                if(isset($header->coverage->slug)){
+                    if ($header->coverage->slug !== 'IC') {
+                        if ($facultative) {
+                            $details = $header->details->where('approved', true)->count();
+                        }
+                        
+                        //$rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
+                        $rate_final = $rates->first()->rate_final;
+                        $details = 1;// a solicitud de Rodrigo Cherveches se quema la tasa para cada codeudor
+                    }else
+                        $rate_final = $rates->first()->rate_final;
+                }
             }
             
             if ($rate_final > 0) {
@@ -480,6 +487,19 @@ class HeaderRepository extends BaseRepository
             $this->model = $this->model->first();
 
             return true;
+        } else {
+            $this->model = HeaderVd::with([
+                'details.client.detailsVi',
+                'details.beneficiary',
+                'details.response',
+                'user.city',
+            ])->where('id', '=', $header_id)->get();
+
+            if($this->model->count() === 1) {
+                $this->model = $this->model->first();
+
+                return true;
+            }
         }
 
         return false;
@@ -664,7 +684,7 @@ class HeaderRepository extends BaseRepository
      */
     public function checkPercentageParticipation()
     {
-        if ($this->model->coverage->slug === 'CO') {
+        if ((isset($this->model->coverage->slug) ? $this->model->coverage->slug : '') === 'CO') {
             $total = $this->model->details()->sum('percentage_credit');
 
             if ($total == 100) {

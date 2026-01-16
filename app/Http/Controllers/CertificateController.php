@@ -124,7 +124,8 @@ class CertificateController extends Controller
                 case 'td':
                 case 'ema':
                 case 'rma':
-		case 'tj':
+		        case 'tj':
+                case 'vd':
                     $slip        = 'certificate_slip';
                     $certificate = $this->repository->getTemplateCertificate($header);
                     break;
