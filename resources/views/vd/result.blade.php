@@ -11,7 +11,8 @@
                     {{-- <h6 class="no-margin text-semibold">{{$header->plan->name}} </h6> --}}
                     <p class="text-muted content-group-sm">
                         {{-- <strong>Prima: Bs {{ number_format((isset($header->plan->annual_premium) ? $header->plan->annual_premium : '156'), 2, '.', '')}}  Anual o Bs {{ number_format((isset($header->plan->monthly_premium) ? $header->plan->monthly_premium : (150 / 12)), 2, '.', '')}}  Mensual</strong> --}}
-                        <strong>Prima: Bs {{ number_format(($header->plan->annual_premium), 2, '.', '')}}  Anual o Bs {{ number_format(($header->plan->monthly_premium), 2, '.', '')}}  Mensual</strong>
+                        {{-- <strong>Prima: Bs {{ number_format(($header->plan->annual_premium), 2, '.', '')}}  Anual o Bs {{ number_format(($header->plan->monthly_premium), 2, '.', '')}}  Mensual</strong> --}}
+                        <strong>Prima: Bs {{ number_format(($header->plan->annual_premium), 2, '.', '')}}  Anual</strong>
                         <br>
                     </p>
                     <hr>

@@ -44,7 +44,7 @@ class ClientCreateFormRequest extends Request
         // $rules['pressure']                  = 'required';
         
         $rules['phone_number_mobile']       = 'numeric|digits_between:7,8';
-        $rules['email']                     = 'email';
+        $rules['email']                     = 'required|email';
 
         if (!$this->request->get('last_name') && !$this->request->get('mother_last_name')){
             $rules['last_name']                 = 'required|alpha_space';
