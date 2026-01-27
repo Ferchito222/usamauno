@@ -104,7 +104,7 @@ var header = function ($scope, $http, $compile) {
             $('#term').prop('readonly', true);
         }else if ($('#payment_method').val() == 'CO'){
             $('#term').val(12);
-            $('#term').prop('readonly', false);
+            $('#term').prop('readonly', true);
         }else if ($('#payment_method').val() == 'TJ'){
             $('#term').val(12);
             $('#term').prop('readonly', true);

@@ -147,11 +147,13 @@
                                                 </li>
                                                 @if ($user_profile !== 'GUP')
                                                     @if(in_array('CADE', $user_permissions))
-                                                        <li class="{{ $current_route === $retailerProduct->companyProduct->product->code . '.cancel.lists' ? 'active' : '' }}">
-                                                            <a href="{{ route($retailerProduct->companyProduct->product->code . '.cancel.lists', ['rp_id' => encode($retailerProduct->id)]) }}">
-                                                                Anular Certificados
-                                                            </a>
-                                                        </li>
+                                                        @if ($retailerProduct->companyProduct->product->code != 'vd')
+                                                            <li class="{{ $current_route === $retailerProduct->companyProduct->product->code . '.cancel.lists' ? 'active' : '' }}">
+                                                                <a href="{{ route($retailerProduct->companyProduct->product->code . '.cancel.lists', ['rp_id' => encode($retailerProduct->id)]) }}">
+                                                                    Anular Certificados
+                                                                </a>
+                                                            </li>                                                            
+                                                        @endif
                                                     @endif
                                                     <li class="{{ $current_route === $retailerProduct->companyProduct->product->code. '.pre.approved.lists' ? 'active' : '' }}">
                                                         <a href="{{ route($retailerProduct->companyProduct->product->code . '.pre.approved.lists', ['rp_id' => encode($retailerProduct->id)]) }}">Solicitudes

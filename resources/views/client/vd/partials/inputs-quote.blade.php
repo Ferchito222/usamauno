@@ -42,7 +42,7 @@
     @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono 1',   'id'=>'phone_number_home',      'required'=>1,'value'=>$client->phone_number_home, 'icon'=>'icon-phone'])
     @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono 2',        'id'=>'phone_number_mobile',    'required'=>0,'value'=>$client->phone_number_mobile, 'icon'=>'icon-phone'])
     @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono Oficina',        'id'=>'phone_number_office',    'required'=>0,'value'=>$client->phone_number_office, 'icon'=>'icon-phone'])
-    @include('partials.fields', ['type'=>'text',    'label'=>'Email',                   'id'=>'email',                  'required'=>0,'value'=>$client->email, 'icon'=>'icon-mail5'])
+    @include('partials.fields', ['type'=>'text',    'label'=>'Email',                   'id'=>'email',                  'required'=>1,'value'=>$client->email, 'icon'=>'icon-mail5'])
     @include('partials.fields', ['type'=>'combo',   'label'=>'Ocupación',               'id'=>'ad_activity_id',         'required'=>1,'value'=>$client->ad_activity_id,'array'=>$data['activities']->toArray()])    
     @include('partials.fields', ['type'=>'textarea','label'=>'¿Cual es su profesion u ocupacion habitual?',   'id'=>'occupation_description', 'required'=>1,'value'=>$client->occupation_description])
     {{--@include('partials.fields', ['type'=>'combo2', 'label'=>'Mano utilizada para escribir y/o firmar', 'id'=>'hand', 'required'=>0,'value'=>$client->hand,'array'=>$data['hands']->toArray()])--}}

@@ -27,8 +27,8 @@
             @include('partials.fields', ['type'=>'text2','label'=>'Facturar a','id'=>'bill_name','required'=>1,'value'=>$header->details->first()->client->full_name])
             @include('partials.fields', ['type'=>'text2','label'=>'NIT','id'=>'bill_dni','required'=>1,'value'=>$header->details->first()->client->dni])
             </span>
-            <u><strong>Datos Adicionales</strong></u>
-            @include('partials.fields', ['type'=>'radio','label'=>'Certificado Pre-Impreso','id'=>'pre_printed','required'=>0,'value'=>$header->pre_printed, 'array'=>$data['true_false']->toArray()])
+            {{-- <u><strong>Datos Adicionales</strong></u> --}}
+            {{-- @include('partials.fields', ['type'=>'radio','label'=>'Certificado Pre-Impreso','id'=>'pre_printed','required'=>0,'value'=>$header->pre_printed, 'array'=>$data['true_false']->toArray()]) --}}
 
             <div  id="msg_pignorar">
                 @include('partials.fields', ['type'=>'text','label'=>'Nro de Caso','id'=>'case_number','required'=>1,'value'=>$header->case_number])
@@ -70,9 +70,9 @@
             @endif
         </div>
         <div class="col-xs-12 col-md-6">
-            <u><strong>Datos Adicionales</strong></u>
-            @include('partials.fields', ['type'=>'label','label'=>'Certificado Pre-Impreso','value'=>($header->pre_printed)?'SI':'NO'])
-            @include('partials.fields', ['type'=>'label','label'=>'Nro de Pre-Impreso','value'=>$header->pre_printed_number])
+            {{-- <u><strong>Datos Adicionales</strong></u> --}}
+            {{-- @include('partials.fields', ['type'=>'label','label'=>'Certificado Pre-Impreso','value'=>($header->pre_printed)?'SI':'NO']) --}}
+            {{-- @include('partials.fields', ['type'=>'label','label'=>'Nro de Pre-Impreso','value'=>$header->pre_printed_number]) --}}
 
             @if($header->payment_method=='CR')
                 @include('partials.fields', ['type'=>'label','label'=>'Nro de Caso del Becoflow','value'=>$header->case_number])

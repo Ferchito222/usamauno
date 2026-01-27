@@ -87,12 +87,12 @@
                                         <strong>{{ $data['detail']->header->details->count() === 1 ? 'Titular' : 'Codeudor ' . ($data['detail']->header->details->count() - 1) }}: </strong>
                                         {{ $data['detail']->client->full_name }}
                                     </h5>
-                                    <h5 class="panel-title">
+                                    {{-- <h5 class="panel-title">
                                         <strong>Peso: </strong> {{ $data['detail']->client->weight }} Kg.
-                                    </h5>
-                                    <h5 class="panel-title">
+                                    </h5> --}}
+                                    {{-- <h5 class="panel-title">
                                         <strong>Estatura: </strong> {{ $data['detail']->client->height }} cm.
-                                    </h5>
+                                    </h5> --}}
                                 </div>
                                 <hr/>
                                 <div class="panel-body">
