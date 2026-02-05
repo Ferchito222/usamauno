@@ -22,7 +22,7 @@
                     
                     @foreach($responses as $key => $response)
                     
-                        @if(($response->id == 24) && $response->expected != $response->response)                        
+                        @if(($response->id == 23) && $response->expected != $response->response)                        
                             @var $val = 1
                         @endif
                     @endforeach
@@ -34,7 +34,7 @@
                         </a>
                     @else
                         <div class="col-xs-12 col-md-12 text-center">
-                            <span class="alert alert-danger" style="font-size: 6pt;">Las respuestas del cuestionario no son las esperadas.</span>
+                            <p class="alert alert-danger" style="font-size: 9pt;">Las respuestas del cuestionario no son las esperadas.</p>
                         </div>
                     @endif
                 </div>
