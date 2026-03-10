@@ -16,7 +16,7 @@
 <div style="width: 720px; font-weight: normal; font-size: 9px; font-family: Arial, Helvetica, sans-serif;
      color: #000000; border: 0px solid #FFFF00; text-align:justify;">
     <table cellpadding="0" cellspacing="0" border="0" style="width:100%; font-weight:bold;">
-        {{-- <tr>
+        <tr>
             <td style="width:50%;">
                 <img src="{{ base_path('public/'.$header->retailerProduct->companyProduct->company->image) }}" width="100">
                 &nbsp;
@@ -24,7 +24,7 @@
             <td style="width:50%; text-align:right;" valign="top">
                 &nbsp;
             </td>
-        </tr> --}}
+        </tr>
         <tr>
             <td style="width:50%;">
                 &nbsp;
@@ -163,12 +163,12 @@
         
         <div style="margin: 2mm 1mm 2mm 2mm; text-align: justify; font-size: 9px; font-family: Arial, Helvetica, sans-serif;">
             <table cellpadding="0" cellspacing="0" border="0" style="width:100%; font-weight:bold;">
-                {{-- <tr>
+                <tr>
                     <td style="width:100%; text-align:right;" valign="top">
                         <img src="{{ base_path('public/'.$header->retailerProduct->companyProduct->company->image) }}" width="100">
                         &nbsp;                        
                     </td>
-                </tr> --}}
+                </tr>
                 <tr>
                     <td style="width:100%; text-align:right;">
                         No. {{ $header->issue_number }}
