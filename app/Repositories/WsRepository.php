@@ -26,6 +26,8 @@ class WsRepository
 
     protected $client;
 
+    protected $client_cbs;
+
     protected $headers;
 
     protected $parameters;
@@ -44,6 +46,8 @@ class WsRepository
     protected $message;
     
     protected $base_uri;
+
+    protected $base_uri_cbs;
     
     protected $auditoria;
     /**
@@ -76,6 +80,21 @@ class WsRepository
             $error_ws = $err;
         }
 
+        $this->headers = [];
+        $this->status  = 200;
+    }
+
+    private function initCBS()
+    {
+        //$this->wsdl     = 'http://10.254.1.153:8084/wsTCorp.asmx?wsdl';#Desarrollo
+        $this->base_uri_cbs = env("URL_CBS");
+        // $this->wsdl     = 'http://10.254.1.18:8083/wsTCorp.asmx?wsdl';#Produccion
+        $this->client_cbs   = new \nusoap_client($this->wsdl, true);
+        $err            = $this->client_cbs->getError();
+
+        if ($err) {
+            $error_ws = $err;
+        }
         $this->headers = [];
         $this->status  = 200;
     }
@@ -405,6 +424,50 @@ class WsRepository
         }
 
         return $operations;
+    }
+
+
+    public function RegistrarCoboser($header,$detail)
+    {
+        $this->initCBS();
+        $response = 'asistencias/register/';
+        $headers = [
+            "token: ".env("TOKEN_CBS"),
+            "Content-Type: application/json"
+        ];
+        
+        $array = array(
+            'issue_number' => $header->policy_number,
+            'first_name' => $detail->client->first_name,
+            'last_name' => $detail->client->last_name,
+            'mother_last_name' => $detail->client->mother_last_name,
+            'dni' => $detail->client->dni,
+            'complement' => $detail->client->complement,
+            'extension' => $detail->client->extension,
+            'birthdate' => date("Y-m-d",strtotime($detail->client->birthdate)),
+            'policy_number' => "",
+            'branch' => "USAMA CON ASISTENCIAS",
+            'product' => "USAMA CON ASISTENCIAS",
+            'date_end' => date("Y-m-d",strtotime($header->date_issue ."+". $header->term. " month"))
+        );
+        //dd($this->base_uri_cbs, $headers,$array);
+        
+        $this->data = [];
+        $url = $this->base_uri_cbs.$response;
+        $c = curl_init("$url");
+        curl_setopt($c, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_HTTPHEADER, $headers);
+        curl_setopt($c, CURLOPT_POSTFIELDS, json_encode($array));
+
+        $responseXML = curl_exec($c);
+        curl_close($c);
+        $this->data = json_decode($responseXML, true);
+        
+        if($this->data['status_code']!=200)
+            return false;
+        else
+            return true;
     }
 
 

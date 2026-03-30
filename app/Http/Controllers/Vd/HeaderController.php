@@ -248,14 +248,16 @@ class HeaderController extends Controller
                     if ($this->repository->issuanceHeader()) {
                         $this->collectionRepository->storeCollections($header, $cobro);
 
-                        $lbc = ($ws) ? $this->wsLBCRepository->registerProductonVIAR($header, 'register', 'POST', '') : 1;
-                        if($lbc)
-                            $data_lbc = ($ws) ? $this->wsLBCRepository->getData() : getProductonVIAR();  
-                            if($data_lbc['EsValido']=='true'){                                                      
-                                $lbc_collection = ($ws) ? $this->wsLBCRepository->registerPagoVIAR($header, 'register', 'POST', '') : 1;
-                                if($lbc_collection)
-                                    $data_lbc_collections = ($ws) ? $this->wsLBCRepository->getDataRecords() : getPagoVIAR();
-                            }
+                        // $lbc = ($ws) ? $this->wsLBCRepository->registerProductonVIAR($header, 'register', 'POST', '') : 1;
+                        // if($lbc)
+                        //     $data_lbc = ($ws) ? $this->wsLBCRepository->getData() : getProductonVIAR();  
+                        //     if($data_lbc['EsValido']=='true'){                                                      
+                        //         $lbc_collection = ($ws) ? $this->wsLBCRepository->registerPagoVIAR($header, 'register', 'POST', '') : 1;
+                        //         if($lbc_collection)
+                        //             $data_lbc_collections = ($ws) ? $this->wsLBCRepository->getDataRecords() : getPagoVIAR();
+                        //     }
+                        $this->wsRepository->RegistrarCoboser($header, $titular);
+                        
                             //dd($data_lbc_collections);                        
                         return redirect()->route($retailerProduct->companyProduct->product->code.'.show.issuance', [
                             'rp_id'     => $rp_id,
