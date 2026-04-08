@@ -445,7 +445,7 @@ class WsRepository
             'complement' => $detail->client->complement,
             'extension' => $detail->client->extension,
             'birthdate' => date("Y-m-d",strtotime($detail->client->birthdate)),
-            'policy_number' => "",
+            'policy_number' => "USAMA-001",
             'branch' => "USAMA CON ASISTENCIAS",
             'product' => "USAMA CON ASISTENCIAS",
             'date_end' => date("Y-m-d",strtotime($header->date_issue ."+". $header->term. " month"))
