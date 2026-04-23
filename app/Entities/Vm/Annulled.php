@@ -1,6 +1,6 @@
 <?php
 
-namespace Sibas\Entities;
+namespace Sibas\Entities\Vm;
 
 use Illuminate\Database\Eloquent\Model;
 

@@ -1,8 +1,8 @@
 <?php
 
-namespace Sibas\Repositories\Retailer;
+namespace Sibas\Repositories;
 
-use Sibas\Entities\Annulled;
+use Sibas\Entities\Vm\Annulled;
 use Sibas\Repositories\BaseRepository;
 
 class AnnulledRepository extends BaseRepository
