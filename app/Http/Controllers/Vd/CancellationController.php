@@ -10,7 +10,7 @@ use Sibas\Http\Controllers\ReportTrait;
 use Sibas\Repositories\Vd\CancellationRepository;
 use Sibas\Repositories\Vd\HeaderRepository;
 use Sibas\Repositories\Retailer\RetailerProductRepository;
-use Sibas\Repositories\Retailer\AnnulledRepository;
+use Sibas\Repositories\AnnulledRepository;
 
 class CancellationController extends Controller
 {
@@ -70,6 +70,8 @@ class CancellationController extends Controller
             }
             
             $headers = $this->repository->getHeaderList($request, $code);
+
+            $data['annulleds'] = $this->annulledRepository->getAnnulledByActive();
             
             return view($retailerProduct->companyProduct->product->code.'.cancellation.list', compact('rp_id', 'headers', 'data', 'code', 'retailerProduct'));
         }
