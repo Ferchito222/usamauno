@@ -49,7 +49,7 @@ class RetailerProductRepository extends BaseRepository
                     $pq = $productQuestion;
                 } elseif (!in_array(is_null($creditProduct) ? [] : $creditProduct->slug, [ 'PMO', 'PLT' ]) && is_null($productQuestion->type)) {
                     $pq = $productQuestion;
-                } else {
+                } elseif (!in_array($productQuestion->type, [ 'PMO', 'PLT' ])) {
                     $pq = $productQuestion;
                 }
 
