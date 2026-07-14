@@ -51,17 +51,20 @@
 <div class="animated" ng-show="approved" ng-class="{ fadeIn: approved, fadeOut: !approved }">
     <div class="form-group" ng-show="preference_field">
         <label class="control-label col-lg-3 label_required">Tasa Preferencial: </label>
-        <div class="col-lg-9">
+        <div class="col-lg-9" ng-init="formData.preference_field = 0">
             <div class="input-group">
                 <label class="radio-inline">
                     {!! Form::radio('preference_field', 1, false, [
-                        'ng-model' => 'formData.preference_field'
+                        'ng-model' => 'formData.preference_field',
+                        'disabled' => 'disabled'
                     ]) !!}
                     SI
                 </label>
                 <label class="radio-inline">
                     {!! Form::radio('preference_field', 0, false, [
                         'ng-model' => 'formData.preference_field',
+                        'disabled' => 'disabled',
+                        'ng-checked' => 'true',
                     ]) !!}
                     NO
                 </label>
