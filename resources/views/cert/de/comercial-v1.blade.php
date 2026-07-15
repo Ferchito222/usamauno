@@ -223,16 +223,31 @@
                 <strong>SI ALGUNA DE SUS RESPUESTAS ( de la N° 2 a la N° 7 ) ES AFIRMATIVA, FAVOR BRINDAR DETALLES</strong>
                 <br>
                 <table cellpadding="0" cellspacing="0" style="width: 100%; font-size: 50%;">
-                    <tr> 
-                        <td style="width: 100%; border-bottom: 1px dotted #000000; text-align: center;">
-                            &nbsp;
-                        </td>
-                    </tr>
-                    <tr> 
-                        <td style="width: 100%; border-bottom: 1px dotted #000000; text-align: center;">
-                            &nbsp;
-                        </td>
-                    </tr>
+                    @var $num_pre = 0;
+                    @foreach($responses as $key => $response)
+                        @if ($response["response_specification"] != '')
+                            <tr> 
+                                <td style="width: 100%; border-bottom: 1px dotted #000000;">
+                                    {{ $key }}. {{ $response["response_specification"] }}
+                                </td>
+                            </tr>
+                            @php
+                                $num_pre = $num_pre + 1;
+                            @endphp
+                        @endif
+                    @endforeach
+                    @if ($num_pre == 0)
+                        <tr> 
+                            <td style="width: 100%; border-bottom: 1px dotted #000000; text-align: center;">
+                                &nbsp;
+                            </td>
+                        </tr>
+                        <tr> 
+                            <td style="width: 100%; border-bottom: 1px dotted #000000; text-align: center;">
+                                &nbsp;
+                            </td>
+                        </tr>                        
+                    @endif
                 </table>
                 <br>
                 <strong>BENEFICIARIO PARA LA COBERTURA DE SEPELIO.-</strong> Familiares de primer grado: (Padres, cónyuge o hijo mayor de edad):
