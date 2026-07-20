@@ -255,7 +255,7 @@
                 </table>
                 <br>
                 <strong>BENEFICIARIO PARA LA COBERTURA DE SEPELIO.-</strong> Familiares de primer grado: (Padres, cónyuge o hijo mayor de edad):
-                {{ $header->details->first()->beneficiary->fullname }} - {{ $header->details->first()->beneficiary->relationship }}
+                {{ $detail->beneficiary->full_name }} - {{ $detail->beneficiary->relationship }}
                 <br>
                 Declaro haber contestado con total veracidad, máxima buena fe a todas las preguntas del presente cuestionario y no haber omitido u ocultado hechos y/o circunstancias que hubiera podido influir en la celebración del contrato de seguro. Las declaraciones de salud que hacen anulable el Contrato de Seguros y en la que el asegurado pierde su derecho a indemnización, se enmarcan en los artículos 992, 993, 999 y 1038 del Código de Comercio.
                 <br>
