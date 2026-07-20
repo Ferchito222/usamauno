@@ -1,5 +1,5 @@
 @var $copies = 1;
-
+@var $num_pre = 0;
 @if($format === 'pdf' && $header->issued)
     @var $copies = $header->copy == 0 ? 1 : $header->copy;
 @endif
@@ -42,7 +42,8 @@
                                         @else
                                             COPIA {{ $c === 1 ? 'BANCO' : ($c === 2 ? 'CIA.' : $c) }}
                                         @endif
-                                        - {{ $header->retailerProduct->retailer->name }}
+                                        {{-- - {{ $header->retailerProduct->retailer->name }} --}}
+                                        - Usama R.L.
                                     @elseif($header->issued && $copies === 1)
                                         ORIGINAL CLIENTE - {{ $header->retailerProduct->retailer->name }}
                                     @endif
@@ -223,17 +224,20 @@
                 <strong>SI ALGUNA DE SUS RESPUESTAS ( de la N° 2 a la N° 7 ) ES AFIRMATIVA, FAVOR BRINDAR DETALLES</strong>
                 <br>
                 <table cellpadding="0" cellspacing="0" style="width: 100%; font-size: 50%;">
-                    @var $num_pre = 0;
                     @foreach($responses as $key => $response)
-                        @if ($response["response_specification"] != '')
-                            <tr> 
-                                <td style="width: 100%; border-bottom: 1px dotted #000000;">
-                                    {{ $key }}. {{ $response["response_specification"] }}
-                                </td>
-                            </tr>
-                            @php
-                                $num_pre = $num_pre + 1;
-                            @endphp
+                        @if (isset($response["response_specification"]))
+                            @if ($response["response_specification"] != '')
+                                <tr> 
+                                    <td style="width: 100%; border-bottom: 1px dotted #000000;">
+                                        {{ $key }}. {{ $response["response_specification"] }}
+                                    </td>
+                                </tr>
+                                <span style="color: #ffffff">
+                                    @php
+                                    $num_pre = $num_pre + 1;
+                                @endphp
+                                </span>
+                            @endif                            
                         @endif
                     @endforeach
                     @if ($num_pre == 0)
@@ -251,6 +255,7 @@
                 </table>
                 <br>
                 <strong>BENEFICIARIO PARA LA COBERTURA DE SEPELIO.-</strong> Familiares de primer grado: (Padres, cónyuge o hijo mayor de edad):
+                {{ $header->details->first()->beneficiary->fullname }} - {{ $header->details->first()->beneficiary->relationship }}
                 <br>
                 Declaro haber contestado con total veracidad, máxima buena fe a todas las preguntas del presente cuestionario y no haber omitido u ocultado hechos y/o circunstancias que hubiera podido influir en la celebración del contrato de seguro. Las declaraciones de salud que hacen anulable el Contrato de Seguros y en la que el asegurado pierde su derecho a indemnización, se enmarcan en los artículos 992, 993, 999 y 1038 del Código de Comercio.
                 <br>
