@@ -361,12 +361,11 @@
                         </td>
                         <td style="width: 4%;"></td>
                         <td style="width: 48%;">
+                            <br>
                             <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; font-size: 50%; margin-bottom: 2px;">
                                 <tr>
                                     <td style="width: 5%;" >Firma:</td>
-                                    <td style="width: 95%; border-bottom: 1px dotted #000000; text-align: center;">
-                                        &nbsp;
-                                    </td>
+                                    <td style="width: 95%; border-top: none !important; border-left: none !important; border-right: none !important; border-bottom: 1px dotted #000000 !important; text-align: center;"></td>
                                 </tr>
                             </table>
                             <br>
