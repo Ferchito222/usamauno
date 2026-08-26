@@ -32,7 +32,7 @@ class ClientCreateFormRequest extends Request
             'complement'        => 'alpha_num',
             'extension'         => 'required|exists:ad_cities,abbreviation',
             'birthdate'         => 'required|date_format:d/m/Y',
-            'phone_number_home' => 'required|numeric|digits_between:7,8',
+            'phone_number_home' => 'required|numeric|digits_between:7,8|regex:/^[567]/',
             'email'             => 'email',
             'weight'            => 'required|numeric|min:1|digits_between:1,3',
             'height'            => 'required|numeric|min:1|digits_between:1,3',

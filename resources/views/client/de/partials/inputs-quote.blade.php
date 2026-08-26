@@ -392,15 +392,28 @@
                 <div class="input-group">
                     <span class="input-group-addon"><i class="icon-phone"></i></span>
                     {!! Form::text('phone_number_mobile', old('phone_number_mobile', $client->phone_number_mobile), [
+                        'id' => 'phone_number_mobile',
                         'class' => 'form-control ui-wizard-content',
                         'placeholder' => 'Telefono 2',
-                        'autocomplete' => 'off'])
+                        'autocomplete' => 'off',
+                        'maxlength' => 8])
                     !!}
                 </div>
                 <label id="location-error" class="validation-error-label"
                        for="location">{{ $errors->first('phone_number_mobile') }}</label>
             </div>
         </div>
+        <script type="text/javascript">
+            $('#phone_number_mobile').on('input', function () {
+                var digits = $(this).val().replace(/\D/g, '');
+
+                if (digits.length && ! /^[567]/.test(digits)) {
+                    digits = digits.substring(1);
+                }
+
+                $(this).val(digits);
+            });
+        </script>
     @endif
     @if(! isset($product))
         @if(auth()->user()->profile->first()->slug !== 'GUP')

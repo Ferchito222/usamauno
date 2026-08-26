@@ -35,7 +35,7 @@ class ClientComplementFormRequest extends Request
             'ad_activity_id'         => 'required|exists:ad_activities,id',
             'occupation_description' => 'required',
             'phone_number_home'      => 'required|numeric|digits_between:7,8',
-            'phone_number_mobile'    => 'numeric|digits_between:7,8',
+            'phone_number_mobile'    => 'numeric|digits_between:7,8|regex:/^[567]/',
             'phone_number_office'    => 'numeric|digits_between:7,8',
             'email'                  => 'email',
             'gender'                 => 'required',
