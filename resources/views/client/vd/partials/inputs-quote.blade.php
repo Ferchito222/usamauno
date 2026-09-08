@@ -39,9 +39,9 @@
     @include('partials.fields', ['type'=>'text',    'label'=>'Ciudad',   'id'=>'`locality`',      'required'=>0,'value'=>$client->locality])
     @include('partials.fields', ['type'=>'text',    'label'=>'Departamento',   'id'=>'`place_residence`',      'required'=>0,'value'=>$client->place_residence])
     @include('partials.fields', ['type'=>'text',    'label'=>'País',   'id'=>'`country`',      'required'=>0,'value'=>$client->country])
-    @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono 1',   'id'=>'phone_number_home',      'required'=>1,'value'=>$client->phone_number_home, 'icon'=>'icon-phone'])
-    @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono 2',        'id'=>'phone_number_mobile',    'required'=>0,'value'=>$client->phone_number_mobile, 'icon'=>'icon-phone'])
-    @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono Oficina',        'id'=>'phone_number_office',    'required'=>0,'value'=>$client->phone_number_office, 'icon'=>'icon-phone'])
+    @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono 1',   'id'=>'phone_number_home',      'required'=>1,'value'=>$client->phone_number_home, 'icon'=>'icon-phone', 'maxlength'=>8])
+    @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono 2',        'id'=>'phone_number_mobile',    'required'=>0,'value'=>$client->phone_number_mobile, 'icon'=>'icon-phone', 'maxlength'=>8])
+    @include('partials.fields', ['type'=>'text',    'label'=>'Teléfono Oficina',        'id'=>'phone_number_office',    'required'=>0,'value'=>$client->phone_number_office, 'icon'=>'icon-phone', 'maxlength'=>8])
     @include('partials.fields', ['type'=>'text',    'label'=>'Email',                   'id'=>'email',                  'required'=>1,'value'=>$client->email, 'icon'=>'icon-mail5'])
     @include('partials.fields', ['type'=>'combo',   'label'=>'Ocupación',               'id'=>'ad_activity_id',         'required'=>1,'value'=>$client->ad_activity_id,'array'=>$data['activities']->toArray()])    
     @include('partials.fields', ['type'=>'textarea','label'=>'¿Cual es su profesion u ocupacion habitual?',   'id'=>'occupation_description', 'required'=>1,'value'=>$client->occupation_description])
@@ -64,4 +64,34 @@
         @include('partials.fields', ['type'=>'combo', 'label'=>'Mano utilizada para escribir y/o firmar', 'id'=>'hand', 'required'=>0,'value'=>$client->hand,'array'=>$data['hands']->toArray()])
     @endif
 </div>
+<script type="text/javascript">
+    $('#phone_number_home').on('input', function () {
+        var digits = $(this).val().replace(/\D/g, '');
 
+        if (digits.length && ! /^[567234]/.test(digits)) {
+            digits = digits.substring(1);
+        }
+
+        $(this).val(digits);
+    });
+
+    $('#phone_number_mobile').on('input', function () {
+        var digits = $(this).val().replace(/\D/g, '');
+
+        if (digits.length && ! /^[567234]/.test(digits)) {
+            digits = digits.substring(1);
+        }
+
+        $(this).val(digits);
+    });
+    
+    $('#phone_number_office').on('input', function () {
+        var digits = $(this).val().replace(/\D/g, '');
+
+        if (digits.length && ! /^[567234]/.test(digits)) {
+            digits = digits.substring(1);
+        }
+
+        $(this).val(digits);
+    });
+</script>

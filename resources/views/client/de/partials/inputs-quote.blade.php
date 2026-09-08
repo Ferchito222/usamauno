@@ -377,13 +377,26 @@
                 {!! Form::text('phone_number_home', old('phone_number_home', $client->phone_number_home), [
                     'class' => 'form-control ui-wizard-content',
                     'placeholder' => 'Telefono 1',
-                    'autocomplete' => 'off'])
+                    'autocomplete' => 'off',
+                    'id' => 'phone_number_home',
+                    'maxlength' => 8])
                 !!}
             </div>
             <label id="location-error" class="validation-error-label"
                    for="location">{{ $errors->first('phone_number_home') }}</label>
         </div>
     </div>
+    <script type="text/javascript">
+        $('#phone_number_home').on('input', function () {
+            var digits = $(this).val().replace(/\D/g, '');
+
+            if (digits.length && ! /^[567234]/.test(digits)) {
+                digits = digits.substring(1);
+            }
+
+            $(this).val(digits);
+        });
+    </script>
 
     @if(auth()->user()->profile->first()->slug !== 'GUP')
         <div class="form-group">
@@ -407,7 +420,7 @@
             $('#phone_number_mobile').on('input', function () {
                 var digits = $(this).val().replace(/\D/g, '');
 
-                if (digits.length && ! /^[567]/.test(digits)) {
+                if (digits.length && ! /^[567234]/.test(digits)) {
                     digits = digits.substring(1);
                 }
 
@@ -425,7 +438,9 @@
                         {!! Form::text('phone_number_office', old('phone_number_office', $client->phone_number_office), [
                             'class' => 'form-control ui-wizard-content',
                             'placeholder' => 'Telef. Oficina',
-                            'autocomplete' => 'off'])
+                            'autocomplete' => 'off',
+                            'id' => 'phone_number_office',
+                            'maxlength' => 8])
                         !!}
                     </div>
                     <label id="location-error" class="validation-error-label"
@@ -452,6 +467,17 @@
             </div>
         @endif
     @endif
+    <script type="text/javascript">
+        $('#phone_number_office').on('input', function () {
+            var digits = $(this).val().replace(/\D/g, '');
+
+            if (digits.length && ! /^[567234]/.test(digits)) {
+                digits = digits.substring(1);
+            }
+
+            $(this).val(digits);
+        });
+    </script>
     <div class="form-group">
         <label class="control-label col-lg-3">Correo electónico: </label>
         <div class="col-lg-9">

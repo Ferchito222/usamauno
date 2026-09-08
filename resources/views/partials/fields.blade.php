@@ -29,7 +29,8 @@
                 'class'        => 'form-control ui-wizard-content',
                 'id'           => $id,
                 'placeholder'  => (isset($label))?$label:'',
-                'autocomplete' => 'off'
+                'autocomplete' => 'off',
+                'maxlength' => 8,
                 ]) !!}
             @endif    
             @if(isset($icon))    
