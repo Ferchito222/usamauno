@@ -72,6 +72,12 @@
             digits = digits.substring(1);
         }
 
+        if (/^[567]/.test(digits)) {
+            digits = digits.substring(0, 8);
+        } else if (/^[234]/.test(digits)) {
+            digits = digits.substring(0, 7);
+        }
+
         $(this).val(digits);
     });
 
@@ -82,6 +88,12 @@
             digits = digits.substring(1);
         }
 
+        if (/^[567]/.test(digits)) {
+            digits = digits.substring(0, 8);
+        } else if (/^[234]/.test(digits)) {
+            digits = digits.substring(0, 7);
+        }
+
         $(this).val(digits);
     });
     
@@ -90,6 +102,12 @@
 
         if (digits.length && ! /^[567234]/.test(digits)) {
             digits = digits.substring(1);
+        }
+
+        if (/^[567]/.test(digits)) {
+            digits = digits.substring(0, 8);
+        } else if (/^[234]/.test(digits)) {
+            digits = digits.substring(0, 7);
         }
 
         $(this).val(digits);
