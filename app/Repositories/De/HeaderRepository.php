@@ -232,26 +232,33 @@ class HeaderRepository extends BaseRepository
                             $details = $header->details->where('approved', true)->count();
                         }
                         
-                        //$rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
+                        // $rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
                         $rate_final = $rates->first()->rate_final;
-                        $details = 1;// a solicitud de Rodrigo Cherveches se quema la tasa para cada codeudor
+                        // $details = 1;// a solicitud de Rodrigo Cherveches se quema la tasa para cada codeudor
                     }else
                         $rate_final = $rates->first()->rate_final;
                 }
             }
             
             if ($rate_final > 0) {
-                foreach ($header->details as $detail) {
+                $total_rate_final = 0;
+                foreach ($header->details as $key => $detail) {
                     $rc = $rate_final;
 
                     if ($header->coverage->slug === 'CO' && ! in_array($header->creditProduct->slug, [ 'PMO', 'PLT' ])) {
                         $rc = ( $rate_final * $detail->percentage_credit ) / 100;
                     } elseif (in_array($header->creditProduct->slug, ['PMO', 'PLT', 'PCM', 'PCA', 'PLNT'])) {
 
-                        $details = ($details>4)?4:$details;
+                        $n = $details > 4 ? 4 : $details;
 
-                        $rc = $rate_final / $details;
-                        
+                        if ($n > 1) {
+                            $total_group = $this->getRateTendered($rate_final, $n);
+
+                            $rc = ( $detail->headline === 'D' )
+                                ? $rate_final
+                                : ( $total_group - $rate_final ) / ( $n - 1 );
+                        }
+
                         /**if ($facultative) {
                             if ($detail->facultative instanceof Facultative
                                 && $detail->facultative->state === 'PR'
@@ -272,12 +279,16 @@ class HeaderRepository extends BaseRepository
                     $detail->update([
                         'rate' => $rc,
                     ]);
+                    $total_rate_final += $rc;
                 }
+                
                 /**/
                 $header->ad_retailer_product_id = $retailerProduct->id;
-                $header->total_rate             = $rate_final;
-                $header->total_premium          = ( $header->amount_requested * $rate_final ) / 100;
-                
+                // $header->total_rate             = $rate_final;
+                $header->total_rate             = $total_rate_final;
+                // $header->total_premium          = ( $header->amount_requested * $rate_final ) / 100;
+                $header->total_premium          = ( $header->amount_requested * $total_rate_final ) / 100;
+                // dd("rate-18", $rate_final, $details, $rates, $facultative, $header->coverage->slug, $header->creditProduct->slug, $total_rate_final, $this->saveModel());
                 return $this->saveModel();
             }
         }
