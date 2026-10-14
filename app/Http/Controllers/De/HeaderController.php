@@ -533,9 +533,10 @@ class HeaderController extends Controller
      */
     public function result($rp_id, $header_id)
     {
+
         if ($this->retailerProductRepository->getRetailerProductById(decode($rp_id))) {
             $retailerProduct = $this->retailerProductRepository->getModel();
-            
+                    
             if (auth()->user()->profile->first()->slug === 'GUP' && request()->session()->has('guest')) {
                 /*
                  * Local Storage
@@ -566,7 +567,7 @@ class HeaderController extends Controller
                  * Local Storage
                  */
             }
-            
+
             Result:
             if ($this->repository->getHeaderById(decode($header_id))) {
                 ShowResult:
@@ -581,12 +582,13 @@ class HeaderController extends Controller
                                     . ' no se registró correctamente. <br>';
                     }
                 }
-                
+
                 if (! empty($responses)) {
                     return redirect()->back()->with(['responses' => $responses]);
                 }
 
                 if ($this->repository->checkPercentageParticipation()) {
+   
                     if ($user->profile->first()->slug === 'GUP') {
                         return view('de.result-guest', compact('rp_id', 'header_id', 'header'));
                     }
@@ -596,7 +598,7 @@ class HeaderController extends Controller
 
                     foreach ($header->details as $detail) {
                         $p = $this->detailRepository->checkDetailPending($detail->client->dni, $detail->client->extension);
-
+                                               
                         if ($p > 0) {
                             $process += 1;
                             $dni[] = $detail->client->dni;

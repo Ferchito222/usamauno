@@ -66,7 +66,7 @@ Route::group([ 'prefix' => 'de/{rp_id}' ], function () {
         'as'   => 'de.issue',
         'uses' => 'De\HeaderController@issue'
     ]);
-
+    //pra mostrar el detalle de la emisión en el listado de emisiones
     Route::get('{header_id}/issuance', [
         'as'   => 'de.issuance',
         'uses' => 'De\HeaderController@issuance'

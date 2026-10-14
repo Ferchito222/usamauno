@@ -207,7 +207,7 @@
                                 @else
                                     <a class="btn btn-primary rounded5"
                                        href="{{ route('de.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
-                                        Continuar <i class="icon-arrow-right14 position-right"></i>
+                                        Continuar -1 <i class="icon-arrow-right14 position-right"></i>
                                     </a>
                                 @endif
                             @else
@@ -219,7 +219,7 @@
                                 @else
                                     <a class="btn btn-primary rounded5"
                                        href="{{ route('de.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
-                                        Continuar <i class="icon-arrow-right14 position-right"></i>
+                                        Continuar -2 <i class="icon-arrow-right14 position-right"></i>
                                     </a>
                                 @endif
                             @endif

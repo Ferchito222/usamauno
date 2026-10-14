@@ -56,10 +56,10 @@ class HeaderRepository extends BaseRepository
         }
 
         if ($request->has('number_line')) {
-            $this->model->data_records = ['number_line' => $this->data[ 'number_line' ]];
+            $this->model->data_records = ['number_line' => $this->data['number_line']];
         }
 
-        if ( ! $this->checkNumber('Q', $quote_number)) {
+        if (! $this->checkNumber('Q', $quote_number)) {
             return $this->saveModel();
         }
 
@@ -80,21 +80,21 @@ class HeaderRepository extends BaseRepository
         if ($retailerProduct instanceof RetailerProduct) {
             if ($this->getCertificate($retailerProduct, $this->model->creditProduct->slug)) {
                 $this->data = $request->all();
-                $initial = \Illuminate\Support\Facades\DB::table('ad_policies')->where('number',$this->data['policy_number'])->where('active',true);
-                
-                if($this->model->creditProduct->slug=='PCA')
-                    $initial = $initial->where('modality','TJ')->first();
+                $initial = \Illuminate\Support\Facades\DB::table('ad_policies')->where('number', $this->data['policy_number'])->where('active', true);
+
+                if ($this->model->creditProduct->slug == 'PCA')
+                    $initial = $initial->where('modality', 'TJ')->first();
                 else
-                    $initial = $initial->where('modality','!=','TJ')->first();
-                
+                    $initial = $initial->where('modality', '!=', 'TJ')->first();
+
                 //$initial = $this->model->retailerProduct->policies->where('number',$this->data['policy_number'])->first();
-                if(in_array($this->model->creditProduct->slug, ['PMO', 'PLT','PCM','PCA','PLNT'])){
-                    $this->model->issue_number      = $this->getNumberByPolicy('I', $initial->initial, $initial->id);#hipotecaria/no licitada
-                    $this->model->version_number    = ($initial->number_renewal)?'- '.$initial->number_renewal:'-1';
+                if (in_array($this->model->creditProduct->slug, ['PMO', 'PLT', 'PCM', 'PCA', 'PLNT'])) {
+                    $this->model->issue_number      = $this->getNumberByPolicy('I', $initial->initial, $initial->id); #hipotecaria/no licitada
+                    $this->model->version_number    = ($initial->number_renewal) ? '- ' . $initial->number_renewal : '-1';
                     $this->model->ad_policy_id      = $initial->id;
-                }else
-                    $this->model->issue_number = $this->getNumber('I', $initial->initial);#No licitada
-                
+                } else
+                    $this->model->issue_number = $this->getNumber('I', $initial->initial); #No licitada
+
                 $this->model->ad_user_id        = $user->id;
                 $this->model->type              = 'I';
                 $this->model->prefix            = 'DE';
@@ -102,11 +102,11 @@ class HeaderRepository extends BaseRepository
                 $this->model->facultative       = $this->setFacultative();
                 $this->model->ad_certificate_id = $this->certificate->id;
                 $this->model->type_of_request   = $this->data['type_of_request'];
-                
-                if($this->data['credit_product'] == 4){
-                    $this->model->issue_number = ($initial->modality != null && $initial->modality == 'TJ')?$this->getNumberTj('I', $initial->initial,$initial->id):$this->getNumber('I', $initial->initial);
+
+                if ($this->data['credit_product'] == 4) {
+                    $this->model->issue_number = ($initial->modality != null && $initial->modality == 'TJ') ? $this->getNumberTj('I', $initial->initial, $initial->id) : $this->getNumber('I', $initial->initial);
                     $this->model->card_number = $this->data['card_number'];
-                }else
+                } else
                     $this->model->operation_number  = $this->model->quote_number;
 
                 if ($request->has('place_issuance')) {
@@ -122,15 +122,15 @@ class HeaderRepository extends BaseRepository
 
         return false;
     }
-    
+
     public function getNumberTj($field, $default = 1, $ad_policy_id)
     {
-        if($field == 'I') {
+        if ($field == 'I') {
             $max = \Illuminate\Support\Facades\DB::table($this->model['table'])
-                    ->where($this->model['table'].'.ad_credit_product_id', '=', 4)
-                    ->where('type', 'I')
-                    ->where('ad_policy_id', $ad_policy_id)
-                    ->max($this->fieldName[$field]);
+                ->where($this->model['table'] . '.ad_credit_product_id', '=', 4)
+                ->where('type', 'I')
+                ->where('ad_policy_id', $ad_policy_id)
+                ->max($this->fieldName[$field]);
         } else
             $max = $this->model->max($this->fieldName[$field]);
 
@@ -167,25 +167,26 @@ class HeaderRepository extends BaseRepository
      */
     public function setHeaderResult($retailerProduct, $header, $facultative = false)
     {
-        if (( $retailerProduct instanceof RetailerProduct ) && $retailerProduct->rates->count() > 0) {
+        if (($retailerProduct instanceof RetailerProduct) && $retailerProduct->rates->count() > 0) {
             $rate_final = 0;
             $details    = $header->details()->count();
-            
-            if (in_array((isset($header->creditProduct->slug) ? $header->creditProduct->slug : ''), [ 'PMO', 'PLT' ])
-                && ( $retailerProduct->type === 'RP' || $retailerProduct->type === 'MP' )
+
+            if (
+                in_array((isset($header->creditProduct->slug) ? $header->creditProduct->slug : ''), ['PMO', 'PLT'])
+                && ($retailerProduct->type === 'RP' || $retailerProduct->type === 'MP')
             ) {
                 $rates = $retailerProduct->rates()->whereHas('creditProduct', function ($q) {
-                    $q->whereIn('slug', [ 'PMO', 'PLT' ]);
+                    $q->whereIn('slug', ['PMO', 'PLT']);
                 })->get();
-                
-                $n    = $rates->count() === 1 ? 1 : ( $details > 4 ? 4 : $details );
+
+                $n    = $rates->count() === 1 ? 1 : ($details > 4 ? 4 : $details);
                 $rate = $rates->filter(function ($item) use ($n) {
                     return ($item->year == $n);
                 })->first();
-                
+
                 if ($rate instanceof Rate) {
                     $rate_final = $rate->rate_final;
-                   
+
                     /*
                      * Formula APS
                      */
@@ -193,7 +194,7 @@ class HeaderRepository extends BaseRepository
                         if ($facultative) {
                             $details = $header->details->where('approved', true)->count();
                         }
-                        
+
                         $rate_final = $this->getRateTendered($rate->rate_final, $details);
                     }
                 }
@@ -201,8 +202,8 @@ class HeaderRepository extends BaseRepository
                 $rates = $retailerProduct->rates();
 
                 $coverage = isset($header->coverage) ? $header->coverage : '';
-                
-                if(isset($header->coverage->id)){
+
+                if (isset($header->coverage->id)) {
                     $rates->where('ad_coverage_id', (isset($header->coverage->id) ? $header->coverage->id : ''))->where('active', true);
 
                     //if ($header->creditProduct->slug === 'PCA') {
@@ -215,7 +216,7 @@ class HeaderRepository extends BaseRepository
                     // }
 
                     $rates = $rates->get();
-                }else{
+                } else {
                     $rates = [];
                 }
                 /**if ($rates->count() === 1) {
@@ -226,37 +227,45 @@ class HeaderRepository extends BaseRepository
                 /*
                 * Formula APS
                 */
-                if(isset($header->coverage->slug)){
+                if (isset($header->coverage->slug)) {
                     if ($header->coverage->slug !== 'IC') {
                         if ($facultative) {
                             $details = $header->details->where('approved', true)->count();
                         }
-                        
+
                         // $rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
                         $rate_final = $rates->first()->rate_final;
                         // $details = 1;// a solicitud de Rodrigo Cherveches se quema la tasa para cada codeudor
-                    }else
+
+                    } else
                         $rate_final = $rates->first()->rate_final;
                 }
             }
-            
+
             if ($rate_final > 0) {
                 $total_rate_final = 0;
                 foreach ($header->details as $key => $detail) {
                     $rc = $rate_final;
 
-                    if ($header->coverage->slug === 'CO' && ! in_array($header->creditProduct->slug, [ 'PMO', 'PLT' ])) {
-                        $rc = ( $rate_final * $detail->percentage_credit ) / 100;
+                    if ($header->coverage->slug === 'CO' && ! in_array($header->creditProduct->slug, ['PMO', 'PLT'])) {
+                        $rc = ($rate_final * $detail->percentage_credit) / 100;
                     } elseif (in_array($header->creditProduct->slug, ['PMO', 'PLT', 'PCM', 'PCA', 'PLNT'])) {
 
                         $n = $details > 4 ? 4 : $details;
 
                         if ($n > 1) {
-                            $total_group = $this->getRateTendered($rate_final, $n);
-
-                            $rc = ( $detail->headline === 'D' )
+                            //cambios para 4 personas
+                            /**$total_group = $this->getRateTendered($rate_final, $n);
+                            /**$rc = ( $detail->headline === 'D' )
                                 ? $rate_final
-                                : ( $total_group - $rate_final ) / ( $n - 1 );
+                                : ( $total_group - $rate_final ) / ( $n - 1 );/**/
+                            
+                           if ($detail->headline === 'D') {
+                                $rc = round($rate_final * 0.5591, 2);
+                            } elseif ($detail->headline === 'C') {
+                                $rc = round($rate_final * 0.4409, 2);
+                            }
+                            //dd("result-4", $rc);
                         }
 
                         /**if ($facultative) {
@@ -281,13 +290,13 @@ class HeaderRepository extends BaseRepository
                     ]);
                     $total_rate_final += $rc;
                 }
-                
+
                 /**/
                 $header->ad_retailer_product_id = $retailerProduct->id;
                 // $header->total_rate             = $rate_final;
                 $header->total_rate             = $total_rate_final;
                 // $header->total_premium          = ( $header->amount_requested * $rate_final ) / 100;
-                $header->total_premium          = ( $header->amount_requested * $total_rate_final ) / 100;
+                $header->total_premium          = ($header->amount_requested * $total_rate_final) / 100;
                 // dd("rate-18", $rate_final, $details, $rates, $facultative, $header->coverage->slug, $header->creditProduct->slug, $total_rate_final, $this->saveModel());
                 return $this->saveModel();
             }
@@ -295,7 +304,7 @@ class HeaderRepository extends BaseRepository
 
         return false;
     }
-    
+
     /**
      * Funcion recalculo de tasa al rechazar un cliente facultativo
      * @param RetailerProduct $retailerProduct
@@ -304,36 +313,37 @@ class HeaderRepository extends BaseRepository
      */
     public function recalculateRate($retailerProduct, $header)
     {
-        if (( $retailerProduct instanceof RetailerProduct ) && $retailerProduct->rates->count() > 0) {
+        if (($retailerProduct instanceof RetailerProduct) && $retailerProduct->rates->count() > 0) {
             $rate_final = 0;
             $details    = $header->details()
-                            ->where('rejected', false)->count();
-            
-            if (in_array($header->creditProduct->slug, [ 'PMO', 'PLT' ])
-                && ( $retailerProduct->type === 'RP' || $retailerProduct->type === 'MP' )
+                ->where('rejected', false)->count();
+
+            if (
+                in_array($header->creditProduct->slug, ['PMO', 'PLT'])
+                && ($retailerProduct->type === 'RP' || $retailerProduct->type === 'MP')
             ) {
-                
+
                 $rates = $retailerProduct->rates()->whereHas('creditProduct', function ($q) {
-                    $q->whereIn('slug', [ 'PMO', 'PLT' ]);
+                    $q->whereIn('slug', ['PMO', 'PLT']);
                 })->get();
-                
-                $n    = ($rates->count() == 1)? 1 : ( $details > 4 ? 4 : $details );
-                
+
+                $n    = ($rates->count() == 1) ? 1 : ($details > 4 ? 4 : $details);
+
                 $rate = $rates->filter(function ($item) use ($n) {
                     return ($item->year == $n);
                 })->first();
-                
+
                 if ($rate instanceof Rate) {
                     $rate_final = $rate->rate_final;
-                   
+
                     /*
                      * Formula APS
                      */
-                    if ($header->coverage->slug !== 'IC') 
+                    if ($header->coverage->slug !== 'IC')
                         $rate_final = $this->getRateTendered($rate->rate_final, $details);
                 }
             } elseif ($retailerProduct->type === 'MP') {
-                
+
                 $rates = $retailerProduct->rates();
 
                 //if ($header->creditProduct->slug === 'PCA') {
@@ -357,27 +367,28 @@ class HeaderRepository extends BaseRepository
                 */
                 if ($header->coverage->slug !== 'IC') {
                     $rate_final = $this->getRateTendered($rates->first()->rate_final, $details);
-                }else
+                } else
                     $rate_final = $rates->first()->rate_final;
             }
 
             if ($rate_final > 0) {
                 foreach ($header->details as $detail) {
-                    if($detail->rejected == false){
+                    if ($detail->rejected == false) {
                         $rc = $rate_final;
 
-                        if ($header->coverage->slug === 'CO' && ! in_array($header->creditProduct->slug, [ 'PMO', 'PLT' ])) {
-                            $rc = ( $rate_final * $detail->percentage_credit ) / 100;
-                        } elseif (in_array($header->creditProduct->slug, [ 'PMO', 'PLT', 'PCM', 'PCA', 'PLNT' ])) {
+                        if ($header->coverage->slug === 'CO' && ! in_array($header->creditProduct->slug, ['PMO', 'PLT'])) {
+                            $rc = ($rate_final * $detail->percentage_credit) / 100;
+                        } elseif (in_array($header->creditProduct->slug, ['PMO', 'PLT', 'PCM', 'PCA', 'PLNT'])) {
 
-                            $details = ($details>4)?4:$details;
-                                
+                            $details = ($details > 4) ? 4 : $details;
+
                             $rc = $rate_final / $details;
-                            
-                            if ($detail->facultative instanceof Facultative
+
+                            if (
+                                $detail->facultative instanceof Facultative
                                 && $detail->facultative->state === 'PR'
-                                && $detail->facultative->approved)
-                            {
+                                && $detail->facultative->approved
+                            ) {
                                 $rf = ($detail->facultative->percentage * $rc / 100);
 
                                 $detail->facultative()->update([
@@ -391,9 +402,8 @@ class HeaderRepository extends BaseRepository
                             'rate' => $rc,
                         ]);
                     }
-                    
                 }
-                
+
                 return $this->saveModel();
             }
         }
@@ -408,9 +418,9 @@ class HeaderRepository extends BaseRepository
             if (is_array($this->model->data_records) && key_exists('number_line', $this->model->data_records)) {
                 try {
                     CreditLine::where('number_line', $this->model->data_records['number_line'])
-                              ->update([
-                                  'op_de_header_id' => $this->model->id
-                              ]);
+                        ->update([
+                            'op_de_header_id' => $this->model->id
+                        ]);
 
                     goto Issuance;
                 } catch (QueryException $e) {
@@ -449,7 +459,7 @@ class HeaderRepository extends BaseRepository
 
                 foreach ($ccs as $key => $cc) {
                     $coverage_id -= 1;
-                    $granted      = ( $key !== 'CTPD' ? true : ( $age < 66 ? true : false ) );
+                    $granted      = ($key !== 'CTPD' ? true : ($age < 66 ? true : false));
 
                     array_push($coverages, [
                         'id'              => $coverage_id,
@@ -506,7 +516,7 @@ class HeaderRepository extends BaseRepository
                 'user.city',
             ])->where('id', '=', $header_id)->get();
 
-            if($this->model->count() === 1) {
+            if ($this->model->count() === 1) {
                 $this->model = $this->model->first();
 
                 return true;
@@ -518,40 +528,39 @@ class HeaderRepository extends BaseRepository
 
     public function getHeader($value)
     {
-        $isssue = explode('-',$value['nro_de_certificado']);
-        $term = explode(' ',$value['plazo_del_credito']);
+        $isssue = explode('-', $value['nro_de_certificado']);
+        $term = explode(' ', $value['plazo_del_credito']);
         $amount_requested = explode(' ', $value['monto_solicitado_moneda']);
         $numericValue = str_replace(',', '', $amount_requested[0]);
         $numericValue = (float) $numericValue;
-        
-        $credit_product = DB::table('ad_credit_products')->where('name',$value['producto'])->first();
-        
-        $this->model = DB::table('op_de_headers')->where('issue_number', $isssue[1])
-                ->where('operation_number', $value['numero_de_operacion'])
-                ->where('term', $term[0])
-                ->where('amount_requested', $numericValue)
-                ->where('currency', str_replace('.','',$amount_requested[1]))
-                ->where('ad_credit_product_id', $credit_product->id)
-                //->whereDate('date_issue', $date_issue)
-                ->get();
 
-        if(count($this->model)==0){
+        $credit_product = DB::table('ad_credit_products')->where('name', $value['producto'])->first();
+
+        $this->model = DB::table('op_de_headers')->where('issue_number', $isssue[1])
+            ->where('operation_number', $value['numero_de_operacion'])
+            ->where('term', $term[0])
+            ->where('amount_requested', $numericValue)
+            ->where('currency', str_replace('.', '', $amount_requested[1]))
+            ->where('ad_credit_product_id', $credit_product->id)
+            //->whereDate('date_issue', $date_issue)
+            ->get();
+
+        if (count($this->model) == 0) {
             $this->model = DB::table('op_de_headers')->where('issue_number', $isssue[1])
                 ->where('term', $term[0])
                 ->where('amount_requested', $numericValue)
-                ->where('currency', str_replace('.','',$amount_requested[1]))
+                ->where('currency', str_replace('.', '', $amount_requested[1]))
                 ->where('ad_credit_product_id', $credit_product->id)
                 //->whereDate('date_issue', $date_issue)
                 ->get();
         }
-        
+
         if (count($this->model) === 1) {
             $this->model = $this->model[0];
 
             return true;
-        }else{
+        } else {
             dd($this->model);
-
         }
 
         return false;
@@ -560,9 +569,9 @@ class HeaderRepository extends BaseRepository
     public function updateCert($id_header, $cert_id)
     {
         $data = [
-            'ad_certificate_id'=>$cert_id,
+            'ad_certificate_id' => $cert_id,
         ];
-        return Header::where('id',$id_header)->update($data);
+        return Header::where('id', $id_header)->update($data);
     }
 
 
@@ -644,7 +653,7 @@ class HeaderRepository extends BaseRepository
 
             if ($details->count() === $rejected) {
                 $this->model->rejected = true;
-            } elseif ($details->count() === ( $approved + $rejected )) {
+            } elseif ($details->count() === ($approved + $rejected)) {
                 $this->model->approved = true;
             }
 
@@ -663,8 +672,11 @@ class HeaderRepository extends BaseRepository
     public function getPolicies($product, $q = '')
     {
         try {
-            $this->model = Header::select('op_de_headers.id', 'issue_number',
-                'prefix')->leftJoin('op_de_coverage_warranties', function ($q1) {
+            $this->model = Header::select(
+                'op_de_headers.id',
+                'issue_number',
+                'prefix'
+            )->leftJoin('op_de_coverage_warranties', function ($q1) {
                 $q1->on('op_de_headers.id', '=', 'op_de_coverage_warranties.op_de_header_id');
             });
 
@@ -683,7 +695,6 @@ class HeaderRepository extends BaseRepository
                 return true;
             }
         } catch (QueryException $e) {
-
         }
 
         return false;
@@ -736,8 +747,10 @@ class HeaderRepository extends BaseRepository
                 $dt['id']              = $data['header']['id'] - $key;
                 $dt['op_de_header_id'] = $header->id;
 
-                $dt['client']['birthdate'] = $this->carbon->createFromFormat('Y-m-d',
-                    $dt['client']['birthdate'])->format('d/m/Y');
+                $dt['client']['birthdate'] = $this->carbon->createFromFormat(
+                    'Y-m-d',
+                    $dt['client']['birthdate']
+                )->format('d/m/Y');
 
                 $client_request = new Request($dt['client']);
 
@@ -785,23 +798,23 @@ class HeaderRepository extends BaseRepository
     public function checkOldOperationNumber($operation_number)
     {
         $old = Header::where('type', 'I')
-                    ->where('issued', true)
-                    ->where('operation_number', $operation_number)
-                    ->where('canceled', false);
+            ->where('issued', true)
+            ->where('operation_number', $operation_number)
+            ->where('canceled', false);
 
         $old = $old->count();
 
         return ($old === 0 ? true : false);
     }
-    
+
     public function checkCardNumber($card_number)
     {
-            $old = Header::where('type', 'I')
-                    ->where('issued', true)
-                    ->where('card_number', $card_number)
-                    ->where('canceled', false);
+        $old = Header::where('type', 'I')
+            ->where('issued', true)
+            ->where('card_number', $card_number)
+            ->where('canceled', false);
 
-        if($old->count()>0)
+        if ($old->count() > 0)
             return false;
         else
             return true;
