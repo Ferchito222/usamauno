@@ -262,7 +262,7 @@
         Invalidez Total Permanente.
     </div>
     <div class="form-group">
-        <label class="control-label col-lg-3 label_required">Coberturas: </label>
+        <label class="control-label col-lg-3 label_required">Coberturas2: </label>
         <div class="col-lg-9">
             <div class="input-group">
                 @foreach(config('base.client_coverages') as $key => $coverage)

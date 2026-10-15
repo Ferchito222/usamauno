@@ -80,7 +80,7 @@
                                     ]) }}" ng-click="showBoxAttach($event)" target="_blank"
                                        class="btn btn-info btn-labeled btn-xlg col-lg-12">
                                         <b><i class="icon-printer4"></i></b>
-                                        Ver Certificado de Emisión -1
+                                        Ver Certificado de Emisión
                                     </a>
                                 </p>
                                 

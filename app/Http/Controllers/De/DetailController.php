@@ -674,6 +674,7 @@ class DetailController extends Controller
 
     public function updateBalance(BalanceFormRequest $request, $rp_id, $header_id, $detail_id)
     {
+        // dd("Resultado");
         if ($request->ajax()) {
             if ($this->headerRepository->getHeaderById(decode($header_id))) {
                 $request['header'] = $this->headerRepository->getModel();

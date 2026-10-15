@@ -352,9 +352,9 @@ return [
     ],
 
     'client_coverages' => [
-        'CD'   => 'Muerte',
-        'CTPD' => 'Invalidez Total Permanente',
-        'CF'   => 'Sepelio',
+        'CD'   => 'Muerte por Cualquier Causa',
+        'CTPD' => 'Invalidez Total y Permanente',
+        'CF'   => 'Gastos de sepelio por Bs. 2.500',
     ],
 
     'steps' => [

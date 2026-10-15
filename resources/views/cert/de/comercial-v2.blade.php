@@ -78,33 +78,53 @@
                         <td style="width: 20%; border-bottom: 1px dotted #000000; text-align: center;">
                             {{ $detail->client->first_name }}
                         </td>
-                        <td style="width: 35%; border-bottom: 1px dotted #000000; text-align: center;">
+                        <td style="width: 30%; border-bottom: 1px dotted #000000; text-align: center;">
                             {{ $detail->client->last_name }}
                         </td>
-                        <td style="width: 35%; border-bottom: 1px dotted #000000; text-align: center;">
-                            {{ $detail->client->mother_last_name }}
+                        {{-- <td style="width: 35%; border-bottom: 1px dotted #000000; text-align: center;"> --}}
+                            {{-- //cambio antes de totular y conyuge --}}
+                            {{-- {{ $detail->client->mother_last_name }}
                             @if($detail->client->gender === 'F' && ! empty($detail->client->married_name))
                             @if($detail->client->civil_status === 'C')
                             {{ $detail->client->married_name }}
                             @elseif($detail->client->civil_status === 'V')
                             vda. de {{ $detail->client->married_name }}
                             @endif
+                            @endif --}}    
+                            {{-- // Agregando otra celda dentro de otra celda para alinear el texto de titular y conyuge nuevo --}}
+                        <td style="width: 35%; border-bottom: 1px dotted #000000; text-align: center; white-space: nowrap;">
+
+                            {{ $detail->client->mother_last_name }}
+
+                            @if($detail->client->gender === 'F' && !empty($detail->client->married_name))
+                                @if($detail->client->civil_status === 'C')
+                                    {{ $detail->client->married_name }}
+                                @elseif($detail->client->civil_status === 'V')
+                                    vda. de {{ $detail->client->married_name }}
+                                @endif
                             @endif
+
+                            {{-- &nbsp;&nbsp;&nbsp; --}}
+
+                        <table style="display:inline-table;">
+                            <tr>
+                                <td style="vertical-align:middle;">
+                                    <span style="border:1px solid #000;padding:0 2px;">
+                                        {{ $detail->headline === 'D' ? 'X' : '&nbsp;' }}
+                                    </span>
+                                    TITULAR
+                                </td>
+
+                                <td style="padding-left:15px; vertical-align:middle;">
+                                    <span style="border:1px solid #000;padding:0 2px;">
+                                        {{ $detail->headline === 'C' ? 'X' : '&nbsp;' }}
+                                    </span>
+                                    CÓNYUGE/CODEUDOR
+                                </td>
+                            </tr>
+                        </table>
                         </td>
-                    </tr>
-                </table>
-                <table cellpadding="0" cellspacing="0" style="width: 100%; font-size: 50%;">
-                    <tr>
-                        <td style="width: 10%;">Tipo: </td>
-                        <td style="width: 20%; text-align: center;">
-                            <span style="display: inline-block; width: 10px; height: 10px; border: 1px solid #000; text-align: center; vertical-align: middle;">{{ $detail->headline === 'D' ? 'X' : '' }}</span>
-                            &nbsp;TITULAR
-                        </td>
-                        <td style="width: 35%; text-align: center;">
-                            <span style="display: inline-block; width: 10px; height: 10px; border: 1px solid #000; text-align: center; vertical-align: middle;">{{ $detail->headline === 'C' ? 'X' : '' }}</span>
-                            &nbsp;CONYUGE/CODEUDOR
-                        </td>
-                        <td style="width: 35%;"></td>
+                        {{-- </td> --}}
                     </tr>
                 </table>
                 <table cellpadding="0" cellspacing="0" style="width: 100%; font-size: 50%;">
@@ -295,6 +315,8 @@
                             Lugar y Fecha: <u>{{ $header->placeIssuance instanceof \Sibas\Entities\City ? $header->placeIssuance->name : $header->user->city->name }} {{ ! is_null($header->date_issue) ? $header->date_issue->format('d/m/Y') : '' }}</u>
                             <br>
                             <strong>
+                                DEL CREDITO SOLICITADO:
+                                <br>
                                 (a ser completado por  el oficial de crédito de la entidad financiera)
                             </strong>
                             <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; font-size: 50%; margin-bottom: 2px;">
@@ -683,6 +705,7 @@
                  </table>
             @endif
             <div style="font-size: 50%; margin-top: 5px; text-align: justify;">
+                <br>
                 <strong>NACIONAL SEGUROS VIDA Y SALUD S.A.</strong>, Santa Cruz Tel. Piloto: (591-3) 371-6262. Fax: (591-3) 3337969 – La Paz Tel. Piloto (591-2) 244-2942. Fax: (591-2) 244-2905 - Cochabamba Tel. Piloto: (591-4) 448-7050. Fax:(591-4) 448-7054 – Sucre Tel. Piloto (591-4) 642-5197. Fax: (591-4) 642-5196-Beni Tel/fax (591-3) 462 2500
                 <br>
                 206-934901-2000 03 006-3012
@@ -727,8 +750,8 @@
                         <div style="margin: 1mm 1mm 1mm 1mm;text-align: justify; font-size: 7px;">
                             NACIONAL SEGUROS VIDA Y SALUD S.A., (denominada en adelante la “Compañía”), por el presente CERTIFICADO INDIVIDUAL DE SEGURO ha ce constar que la persona nominada en el anverso de la
                             declaración jurada de salud (denominado) en adelante el “Asegurado”), está protegido por la Póliza de Seguro de Vida de Desgravamen arriba mencionada, de acuerdo a las siguientes Condiciones Particulares:
-                            <br>
-                            <strong>CONTRATANTE Y BENEFICIARIO</strong>	CONTRATANTE Y BENEFICIARIO	COOPERATIVA DE AHORRO Y CRÉDITO SOCIETARIA "UNIÓN SANTIAGO DE MACHACA USAMA" R.L.
+                            <br>  
+                            <strong>CONTRATANTE Y BENEFICIARIO      CONTRATANTE Y BENEFICIARIO	COOPERATIVA DE AHORRO Y CRÉDITO SOCIETARIA "UNIÓN SANTIAGO DE MACHACA USAMA" R.L.</strong>	
                             <br>
                             <br>
                             <strong>COBERTURAS Y CAPITALES ASEGURADOS:</strong>
@@ -752,13 +775,13 @@
                             <table cellpadding="0" cellspacing="0" border="0" style="width: 100%; font-size: 50%; margin-bottom: 2px;">
                                 <tr>
                                     <td style="width: 25%; ">De Ingreso:</td>
-                                    <td style="width: 25%; ">Desde 18 años, hasta los 70 años y 364 días</td>
+                                    <td style="width: 25%; ">Desde 18 años, hasta los 70 años</td>
                                     <td style="width: 25%; ">De ingreso:</td>
                                     <td style="width: 25%; ">Desde  18 años, hasta los 65 años</td>
                                 </tr>
                                 <tr>
                                     <td style="width: 25%; ">De permanencia</td>
-                                    <td style="width: 25%; ">Hasta 75 años</td>
+                                    <td style="width: 25%; ">Hasta 76 años</td>
                                     <td style="width: 25%; ">De permanencia:</td>
                                     <td style="width: 25%; ">Hasta  70 años</td>
                                 </tr>
@@ -893,10 +916,11 @@
                                         <br>
                                         Certificado médico único de defunción original o copia legalizada
                                         <br>
-                                        Fotocopia de la autoridad competente (para los casos de muerte accidental o suicidio) Declaración jurada de salud
+                                        Fotocopia de la autoridad competente (para los casos de muerte accidental o suicidio) 
                                         <br>
-                                        Historia Clínica (si corresponde)
+                                        Declaración jurada de salud
                                         <br>
+                                        Historia Clínica (si corresponde)                                        
                                         <br>
                                         <strong>B) En caso de Invalidez Total y Permanente:</strong>
                                         <br>

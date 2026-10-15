@@ -85,8 +85,12 @@ var detailEdit = function ($rootScope, $scope, $http) {
           
           if (response.status == 200) {
             if ('location' in response.data) {
+              // esta parte de cambia para que se pueda mostrar el mensaje de exito en la vista de detalle
+              // $scope.success = { beneficiary: false };
+              // $scope.redirect(response.data.location);
               $scope.success = { beneficiary: true };
               $scope.redirect(response.data.location);
+
             } else {
               $rootScope.submitted = false;
             }
