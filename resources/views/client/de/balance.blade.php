@@ -6,7 +6,7 @@
                 <h6 class="form-wizard-title2 text-semibold">
                     <span class="col-md-11">
                         <span class="form-wizard-count">4</span>
-                        Datos del Saldo deudor-1
+                        Datos del Saldo deudor
                         <small class="display-block">Cliente {{ $detail->client->full_name }}</small>
                     </span>
                 </h6>

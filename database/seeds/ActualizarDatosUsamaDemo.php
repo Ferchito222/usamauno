@@ -21,7 +21,7 @@ class ActualizarDatosUsamaDemo extends Seeder
                 array(
                     'ad_retailer_product_id' => 1474321374,
                     'version' => 1.0,
-                    'template' => 'comercial-v3',
+                    'template' => 'comercial-v2',
                     'active' => 1,
                 ),
                 array(

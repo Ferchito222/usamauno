@@ -187,14 +187,19 @@
                     <div class="col-xs-12">
                         <br>                        
                         <div class="text-right">
-                            @if ($header->details->count() < $coverage_detail)
-                                @if($user->profile->first()->slug !== 'GUP')
+                            @if($user->profile->first()->slug !== 'GUP')
+                                @if ($header->details->count() < 2)
                                     <a class="btn btn-primary"
                                        href="{{ route('de.detail.create', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}"
                                        title="Nuevo Cliente">
                                         Añadir Cliente
                                         <i class="icon-plus2 position-right"></i>
                                     </a>
+                                @else
+                                    <button class="btn btn-primary" disabled title="Solo se permite un titular y un cónyuge">
+                                        Añadir Cliente
+                                        <i class="icon-plus2 position-right"></i>
+                                    </button>
                                 @endif
                             @endif
 
@@ -207,7 +212,7 @@
                                 @else
                                     <a class="btn btn-primary rounded5"
                                        href="{{ route('de.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
-                                        Continuar -1 <i class="icon-arrow-right14 position-right"></i>
+                                        Continuar <i class="icon-arrow-right14 position-right"></i>
                                     </a>
                                 @endif
                             @else
@@ -219,7 +224,7 @@
                                 @else
                                     <a class="btn btn-primary rounded5"
                                        href="{{ route('de.result', ['rp_id' => $rp_id, 'header_id' => $header_id]) }}">
-                                        Continuar -2 <i class="icon-arrow-right14 position-right"></i>
+                                        Continuar <i class="icon-arrow-right14 position-right"></i>
                                     </a>
                                 @endif
                             @endif
